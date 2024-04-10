@@ -12,6 +12,7 @@ import { db } from "../../lib/firebase";
 import { useChatStore } from "../../lib/chatStore";
 import { useUserStore } from "../../lib/userStore";
 import upload from "../../lib/upload";
+import { format } from "timeago.js";
 
 const Chat = () => {
   const [chat, setChat] = useState();
@@ -30,7 +31,7 @@ const Chat = () => {
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, []);
+  }, [chat.messages]);
 
   useEffect(() => {
     const unSub = onSnapshot(doc(db, "chats", chatId), (res) => {
@@ -100,14 +101,14 @@ const Chat = () => {
       });
     } catch (err) {
       console.log(err);
-    }
-
+    } finally{
     setImg({
       file: null,
       url: "",
     });
 
     setText("");
+    }
   };
 
   return (
@@ -137,7 +138,7 @@ const Chat = () => {
             <div className="texts">
               {message.img && <img src={message.img} alt="" />}
               <p>{message.text}</p>
-              {/* <span>{message}</span> */}
+              <span>{format(message.createdAt.toDate())}</span>
             </div>
           </div>
         ))}
