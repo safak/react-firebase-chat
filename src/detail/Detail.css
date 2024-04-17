@@ -1,0 +1,96 @@
+.detail {
+    flex: 1;
+
+    .user {
+        padding: 30px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        border-bottom: 1px solid #dddddd35;
+
+        img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    }
+
+    .info {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        .option {
+            .title {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                img {
+                    width: 30px;
+                    height: 30px;
+                    background-color: rgba(17,25,40,0.3);
+                    padding: 10px;
+                    border-radius: 50%;
+                    cursor: pointer;
+                }
+            }
+
+            .photos {
+                margin-top: 20px;
+                display: flex;
+                gap: 20px;
+                flex-direction: column;
+
+                .photoItem {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    .photoDetail {
+                        display: flex;
+                        align-items: center;
+                        gap: 20px;
+
+                        img {
+                            width: 40px;
+                            height: 40px;
+                            object-fit: cover;
+                            border-radius: 5px;
+                        }
+
+                        span {
+                            font-size: 14px;
+                            color: lightgray;
+                            font-weight: 300;
+                        }
+                    }
+
+                    .icon {
+                        width: 30px;
+                        height: 30px;
+                        cursor: pointer;
+                        background-color: rgba(17, 25, 40, 0.3);
+                        padding: 10px;
+                        border-radius: 50%;
+                    }
+                }
+            }
+        }
+        button {
+            padding: 10px 20px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(230,74,105,0.553);
+            cursor: pointer;
+
+            &:hover {
+                background-color: rgba(230,74,105,1);
+            }
+        }
+    }
+}
