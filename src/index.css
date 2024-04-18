@@ -4,4 +4,36 @@
   box-sizing: border-box;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+
+
+}
+
+body {
+  /* background-image: url("/bg.jpg"); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3rem;
+  overflow: hidden;
+
+}
+
+.container {
+  display: flex;
+  width: 90vw;
+  height: 90vh;
+  margin-top: 3rem;
+  background-color:rgba(94, 61, 14, 0.353);
+  backdrop-filter: blur(19px) saturate(180%);
+  border-radius: 5px;
+  margin: 0 auto;
+  overflow: hidden;
+  /* position:static; */
+}
+
+.list {
+  overflow: scroll;
+  border-left: 1px solid #dddddd35;
+  border-right: 1px solid #dddddd35;
+  height: 100%;
 }
