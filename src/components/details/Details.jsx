@@ -1,5 +1,15 @@
+import { toast } from "react-toastify";
 import "./Details.css";
+
 export const Details = () => {
+
+  function blockToast(){
+    toast.info("User bolcked")
+  }
+
+  function logoutToast(){
+    toast.info("User bolcked")
+  }
   return (
     <>
       <div className="details">
@@ -80,10 +90,10 @@ export const Details = () => {
 
         <div className="bottom">
           <div className="login">
-            <button>Logout</button>
+            <button onClick={logoutToast}>Logout</button>
           </div>
           <div className="block">
-            <button>Block User</button>
+            <button onClick={blockToast}>Block User</button>
           </div>
         </div>
       </div>

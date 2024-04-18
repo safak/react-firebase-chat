@@ -1,3 +1,4 @@
+import AddUser from "./addUser/AddUser";
 import "./chat.css";
 import { useState } from "react";
 
@@ -107,8 +108,9 @@ export const Chat = () => {
             <span>Kofi Pascal</span>
             <p>Hello, Edward</p>
           </div>
-        </div>
+        </div>  
       </div>
+     {addMode && <AddUser/>}
     </>
   );
 };

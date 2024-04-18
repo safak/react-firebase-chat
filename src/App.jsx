@@ -1,7 +1,8 @@
 import { Chats } from "./components/chats/Chats";
-import { Details } from "./components/details/Details";
 import { List } from "./components/list/List";
-import { Login } from "./components/login/Login";
+import { Details } from "./components/details/Details";
+import { Login }from "./pages/login/Login"
+import { Notifications } from "./utils/notification/Notifications";
 
 const App = () => {
   const user = false;
@@ -19,6 +20,7 @@ const App = () => {
       ) : (
         <Login />
       )}
+      <Notifications/>
     </div>
   );
 };
