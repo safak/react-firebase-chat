@@ -5,7 +5,7 @@ import { Login }from "./pages/login/Login"
 import { Notifications } from "./utils/notification/Notifications";
 
 const App = () => {
-  const user = false;
+  const user = true;
 
   return (
     <div className="container">

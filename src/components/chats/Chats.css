@@ -5,6 +5,7 @@
     border-left: 1px solid #dddddd35;
     border-right: 1px solid #dddddd35;
     height: 100%;
+    background-color: #EDF0F5;
     /* margin-top: 1rem; */
     /* padding: 20px; */
 
@@ -15,6 +16,8 @@
         align-items: center;
         border-bottom: 1px solid rgb(255, 255, 255);
         padding: 20px;
+        background-color: #ffffff;
+        border-bottom: 1px solid rgba(128, 128, 128, 0.357);
 
         .user{
             display: flex;
@@ -43,6 +46,10 @@
         .icons{
             display: flex;
             gap: 20px;
+            background-color: #BFE8E1;
+            padding: 10px;
+            border-radius: 10px;
+
 
             img{
                 height: 20px;
@@ -70,9 +77,10 @@
 
                 .messageText{
                     p{
-                        background-color: aliceblue;
-                        padding: 5px;
-                        border-radius: 5px;
+                        background-color: #FFFFFF;
+                        padding: 15px;
+                        border-radius: 10px;
+                        box-shadow: 0.5px 0.5px 0px 1px rgba(128, 128, 128, 0.368);
                     }
                 }
             }
@@ -91,9 +99,11 @@
                 gap: 5px;
 
                 p{
-                    padding: 10px;
+                    padding: 15px;
                     border-radius: 10px;
-                    background-color: aqua;
+                    background-color: #BFE8E1;
+                    border-radius: 10px;
+                    box-shadow: 1px 0.5px 0px 1px rgba(128, 128, 128, 0.347);
                 }
 
                 span{
@@ -121,19 +131,22 @@
         margin-top: 1rem;
         padding: 20px;
         margin-top: auto;
+        background-color: #FFFFFF;
 
         .messageInput{
             display: flex;
             gap: 20px;
             align-items: center;
 
-            input{
+            textarea{
                 width: 500px;
                 padding: 15px;
-                background-color: rgba(92, 92, 92, 0.829);
+                background-color: #f5f5f5;
                 border: none;
-                border: 1px solid rgb(187, 187, 187);
+                /* border: 1px solid rgb(187, 187, 187); */
                 border-radius: 5px;
+                outline: none;
+
             }
 
             .send{
@@ -141,7 +154,7 @@
                 border-radius: 5px;
                 width: 100px;
                 border: none;
-                background-color: aliceblue;
+                background-color: #BFE8E1;
             }
 
             .emoji{
@@ -153,8 +166,9 @@
                     left: 0;
                 }
 
-                img{
+                .emo{
                     cursor: pointer;
+                    font-size: 25px;
                 }
             }
         }
@@ -162,6 +176,7 @@
         .icons{
             display: flex;
             gap: 20px;
+            font-size: 25px;
         }
 
         img{

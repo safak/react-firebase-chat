@@ -1,6 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import "./Chats.css";
 import EmojiPicker from "emoji-picker-react";
+import { IoMdCall } from "react-icons/io";
+import { IoVideocamOutline } from "react-icons/io5";
+import { IoIosInformationCircleOutline } from "react-icons/io";
+import { CiCamera } from "react-icons/ci";
+import { CiImageOn } from "react-icons/ci";
+import { CiMicrophoneOn } from "react-icons/ci";
+import { MdOutlineEmojiEmotions } from "react-icons/md";
+
+
 
 export const Chats = () => {
   const [pickEmoji, setPickEmoji] = useState(false);
@@ -35,9 +44,12 @@ export const Chats = () => {
         </div>
 
         <div className="icons">
-          <img src="./phone.png" alt="" />
-          <img src="./video.png" alt="" />
-          <img src="./info.png" alt="" />
+          {/* <img src="./phone.png" alt="" /> */}
+          <IoMdCall/>
+          {/* <img src="./video.png" alt="" /> */}
+          <IoVideocamOutline/>
+          {/* <img src="./info.png" alt="" /> */}
+          <IoIosInformationCircleOutline/>
         </div>
       </div>
 
@@ -172,20 +184,24 @@ export const Chats = () => {
 
       <div className="bottom">
         <div className="icons">
-          <img src="./img.png" alt="" />
-          <img src="./camera.png" alt="" />
-          <img src="./mic.png" alt="" />
+          {/* <img src="./img.png" alt="" /> */}
+          <CiImageOn/>
+          {/* <img src="./camera.png" alt="" /> */}
+          <CiCamera/>
+          {/* <img src="./mic.png" alt="" /> */}
+          <CiMicrophoneOn/>
         </div>
 
         <div className="messageInput">
-          <input
+          <textarea
             type="text"
             value={text}
             placeholder="Type a message..."
             onChange={(e) => setText(e.target.value)}
-          />
+          ></textarea>
           <div className="emoji">
-            <img src="./emoji.png" alt="" onClick={toggleEmojiPicker} />
+            {/* <img src="./emoji.png" alt="" onClick={toggleEmojiPicker} /> */}
+            <MdOutlineEmojiEmotions className="emo" onClick={toggleEmojiPicker}/>
             <div className="picker">
               {pickEmoji && <EmojiPicker onEmojiClick={handleEmo} />}
             </div>

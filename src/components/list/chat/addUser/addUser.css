@@ -1,6 +1,6 @@
 .addUser{
     padding: 30px;
-    background-color: #cdcdcde4;
+    background-color: #ffffff;
     width: max-content;
     height: max-content;
     border-radius: 5px;
@@ -10,16 +10,19 @@
     left: 0;
     right: 0;
     margin: auto;
+    box-shadow: 1px 0.5px 0.5px 0.5px rgba(201, 201, 201, 0.659);
 
     form{
         display: flex;
         gap: 20px;
 
         input{
-            padding: 20px;
+            padding: 10px;
             border-radius: 10px;
             border: none;
             outline: none;
+            width: 300px;
+            background-color: #F0F3F6;
         }
 
         button{
@@ -27,7 +30,7 @@
             border-radius: 10px;
             border: none;
             cursor: pointer;
-            background-color:aliceblue;
+            background-color:#F0F3F6;
         }
         
     }

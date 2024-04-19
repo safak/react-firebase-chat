@@ -4,21 +4,25 @@
     display: flex;
     align-items: center;
     gap: 100px;
+    background-image: url('./background.jpg');
+    object-fit: cover;
+    background-position: inherit;
+    
 
     .login {
         flex: 1;
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-color: #ffffff35;
+        background-color: #EDF0F5;
         padding: 30px;
         margin-left: 6rem;
-        border-radius: 5px;
+        border-radius: 10px;
 
         .greetings h2{
             font-size: 10px;
             padding: 20px;
-            color: #2d2d2d35;
+            color: #1a1a1ab5;
         }
 
         .loginForm {
@@ -35,20 +39,20 @@
 
 
                 input {
-                    padding: 10px;
+                    padding: 15px;
                     border-radius: 5px;
                     width: 350px;
                     border: none;
                 }
 
                 button{
-                    padding: 10px;
+                    padding: 20px;
                     border-radius: 5px;
                     border: none;
                     width: 350px;
                     cursor: pointer;
                     font-weight: bolder;
-                    background-color: aliceblue;
+                    background-color: #BFE8E1;
                 }
             }
 
@@ -58,7 +62,7 @@
 
     .seperator {
         border-left: 3px solid #ffffff35;
-        height: 100%;
+        height: 80%;
     }
 
     .signup {
@@ -68,13 +72,14 @@
         align-items: center;
         gap: 20px;
         padding: 30px;
-        background-color:#ffffff35;
+        background-color:#EDF0F5;
         margin-right: 6rem;
+        border-radius: 10px;
 
         .greetings h2{
             font-size: 10px;
             padding: 10px;
-            color: #2d2d2d35;
+            color: #2d2d2da3;
         }
 
         .signupForm{
@@ -110,20 +115,20 @@
 
 
                 input {
-                    padding: 10px;
+                    padding: 15px;
                     border-radius: 5px;
                     width: 350px;
                     border: none;
                 }
 
                 button{
-                    padding: 10px;
+                    padding: 20px;
                     border-radius: 5px;
                     border: none;
                     width: 350px;
                     cursor: pointer;
                     font-weight: bolder;
-                    background-color: aliceblue;
+                    background-color: #BFE8E1;
                 }
             }
         }

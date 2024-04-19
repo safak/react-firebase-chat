@@ -10,9 +10,8 @@ import {
   getFirestore,
   addDoc,
   collection,
-  namedQuery,
 } from "firebase/firestore";
-import upload from "../../lib/uploads";
+
 
 export const Login = () => {
   const [avatar, setAvatar] = useState({
@@ -85,7 +84,8 @@ export const Login = () => {
   const greet = () => {
     const date = new Date();
     const hour = date.getHours();
-    if (hour < 12) {
+    console.log(hour);
+    if (hour < 24) {
       return "Good Morning";
     } else if (hour < 18) {
       return "Good Afternoon";
@@ -95,11 +95,9 @@ export const Login = () => {
   };
 
   const user = {
-    name: '',
+    name: "",
     avatar: "👩🏽‍💼",
   };
-
-
 
   return (
     <>
@@ -116,7 +114,7 @@ export const Login = () => {
             <form className="loginForm" onSubmit={handleLogin}>
               <div>
                 <h2>Welcome Back</h2>
-                <h3>Login</h3>
+                {/* <h3>Login</h3> */}
               </div>
               <div className="form-group">
                 <label htmlFor="email">Email</label>
@@ -138,8 +136,7 @@ export const Login = () => {
         <div className="signup">
           <div className="greetings">
             <h2>
-              {greet()},
-              {user.avatar}
+              {greet()},{user.avatar}
             </h2>
           </div>
           <div className="title">
