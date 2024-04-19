@@ -1,0 +1,177 @@
+.chat{
+    flex: 2;
+    flex-direction: column;
+    display: flex;
+    border-left: 1px solid #dddddd35;
+    border-right: 1px solid #dddddd35;
+    height: 100%;
+    /* margin-top: 1rem; */
+    /* padding: 20px; */
+
+
+    .top{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgb(255, 255, 255);
+        padding: 20px;
+
+        .user{
+            display: flex;
+            gap: 20px;
+
+            img{
+                width: 45px;
+                height: 45px;
+                border-radius: 50%;
+            }
+
+            .userDetails{
+                /* padding: 5px; */
+
+                span{
+                    font-weight: bold;
+                }
+
+                p{
+                    margin-top: 5px;
+                    font-size: 10px;
+                }
+            }
+        }
+
+        .icons{
+            display: flex;
+            gap: 20px;
+
+            img{
+                height: 20px;
+                height: 20px;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .center{
+        padding: 20px;
+        flex: 1;
+        overflow: scroll;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .message{
+            max-width: 70%;
+            display: flex;
+            gap: 20px;
+
+            &.own{
+                align-self: flex-end;
+
+                .messageText{
+                    p{
+                        background-color: aliceblue;
+                        padding: 5px;
+                        border-radius: 5px;
+                    }
+                }
+            }
+
+            img{
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+
+            .messageText{
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+
+                p{
+                    padding: 10px;
+                    border-radius: 10px;
+                    background-color: aqua;
+                }
+
+                span{
+                    font-size: 13px;
+                }
+
+                .imgSent{
+                    width: 100%;
+                    height: 300px;
+                    border-radius: 10px;
+                    object-fit: cover;
+                }
+            }
+
+
+        }
+
+    }
+
+    .bottom{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        margin-top: 1rem;
+        padding: 20px;
+        margin-top: auto;
+
+        .messageInput{
+            display: flex;
+            gap: 20px;
+            align-items: center;
+
+            input{
+                width: 500px;
+                padding: 15px;
+                background-color: rgba(92, 92, 92, 0.829);
+                border: none;
+                border: 1px solid rgb(187, 187, 187);
+                border-radius: 5px;
+            }
+
+            .send{
+                padding: 10px;
+                border-radius: 5px;
+                width: 100px;
+                border: none;
+                background-color: aliceblue;
+            }
+
+            .emoji{
+                position: relative;
+
+                .picker{
+                    position: absolute;
+                    bottom: 50px;
+                    left: 0;
+                }
+
+                img{
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .icons{
+            display: flex;
+            gap: 20px;
+        }
+
+        img{
+            height: 25px;
+            width: 25px;
+            cursor: pointer;
+        }
+    }
+
+    p{
+        font-size: 15px;
+    }
+}

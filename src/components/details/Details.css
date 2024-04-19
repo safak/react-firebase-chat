@@ -1,0 +1,110 @@
+.details{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .top{
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        border-bottom: 1px solid #dddddd35;
+
+        img{
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        } 
+    }
+
+
+    .center{
+        padding: 20px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .info{
+
+            .option{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .icon{
+                width: 25px;
+                height: 25px;
+                background-color: #dddddd35;
+                border-radius: 50%;
+                padding: 5px;
+            }
+
+            .sharePhotos{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 30px;
+                
+                .photo{
+                    display: flex;
+                    gap: 20px;
+
+                }
+
+                .img{
+                    width: 50px;
+                    width: 50px;
+                    border-radius: 5px;
+                }
+
+                span{
+                    color: #ddddddf4;
+                    
+                }
+            }
+        }
+    }
+
+    .bottom{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        margin-top: auto;
+        padding: 20px;
+
+        .login button{
+            width: 400px;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            background-color: aliceblue;
+            font-weight: bold;
+
+            &:hover{
+                background-color: rgba(240, 248, 255, 0.543);
+            }
+        }
+
+        .block button{
+            width: 400px;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            background-color: rgb(226, 100, 96);
+            color: white;
+            font-weight: bold;
+
+            &:hover{
+                background-color: rgb(82, 13, 11);
+            }
+        }
+    }
+}

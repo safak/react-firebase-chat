@@ -1,0 +1,35 @@
+.userInfo{
+    /* background-color: rgba(224, 224, 224, 0.446); */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    /* margin-right: 1rem; */
+    /* border-right: 2px solid gray; */
+
+    .user{
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        img{
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+    }
+
+    .icons{
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        
+
+        img{
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    
+}
