@@ -44,11 +44,8 @@ export const Chats = () => {
         </div>
 
         <div className="icons">
-          {/* <img src="./phone.png" alt="" /> */}
           <IoMdCall/>
-          {/* <img src="./video.png" alt="" /> */}
           <IoVideocamOutline/>
-          {/* <img src="./info.png" alt="" /> */}
           <IoIosInformationCircleOutline/>
         </div>
       </div>
@@ -180,15 +177,11 @@ export const Chats = () => {
         </div>
         <div ref={endRef}></div>
       </div>
-      {/* <div ref={endRef}></div> */}
 
       <div className="bottom">
         <div className="icons">
-          {/* <img src="./img.png" alt="" /> */}
           <CiImageOn/>
-          {/* <img src="./camera.png" alt="" /> */}
           <CiCamera/>
-          {/* <img src="./mic.png" alt="" /> */}
           <CiMicrophoneOn/>
         </div>
 
@@ -200,7 +193,6 @@ export const Chats = () => {
             onChange={(e) => setText(e.target.value)}
           ></textarea>
           <div className="emoji">
-            {/* <img src="./emoji.png" alt="" onClick={toggleEmojiPicker} /> */}
             <MdOutlineEmojiEmotions className="emo" onClick={toggleEmojiPicker}/>
             <div className="picker">
               {pickEmoji && <EmojiPicker onEmojiClick={handleEmo} />}

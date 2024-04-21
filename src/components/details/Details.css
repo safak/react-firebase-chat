@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    background-color:rgba(240, 248, 255, 0.703);
 
     .top{
         padding: 20px;
@@ -49,9 +50,10 @@
             .icon{
                 width: 25px;
                 height: 25px;
-                background-color:#BFE8E1;;
+                background-color:#acf0e5;;
                 border-radius: 50%;
                 padding: 5px;
+                cursor: pointer;
             }
 
             .sharePhotos{
@@ -73,7 +75,7 @@
                 }
 
                 span{
-                    color: #c0c0c0f4;
+                    color: #787878f4;
                     
                 }
             }
@@ -98,7 +100,7 @@
             font-weight: bold;
 
             &:hover{
-                background-color: rgba(240, 248, 255, 0.543);
+                background-color: #e5e3e3;
             }
         }
 

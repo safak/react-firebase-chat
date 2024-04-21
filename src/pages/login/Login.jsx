@@ -12,12 +12,13 @@ import {
   collection,
 } from "firebase/firestore";
 
-
 export const Login = () => {
   const [avatar, setAvatar] = useState({
     file: null,
     url: "",
   });
+
+  const [loading, setLoading] = useState(false);
 
   const handleAvatar = (e) => {
     if (e.target.files[0]) {
@@ -34,6 +35,7 @@ export const Login = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const formData = new FormData(e.target);
 
@@ -61,11 +63,14 @@ export const Login = () => {
     } catch (error) {
       toast.error(error.message);
       console.log(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const formData = new FormData(e.target);
 
     const { email, password } = Object.fromEntries(formData);
@@ -77,6 +82,8 @@ export const Login = () => {
       toast.success("Login successful");
     } catch (error) {
       toast.error(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -125,7 +132,9 @@ export const Login = () => {
                 <input type="password" id="password" name="password" />
               </div>
               <div className="form-group">
-                <button type="submit">Login</button>
+                <button type="submit" disabled={loading}>
+                  {loading ? <span className="spinner"></span> : "Login"}
+                </button>
               </div>
             </form>
           </div>
@@ -169,7 +178,9 @@ export const Login = () => {
                 <input type="password" id="password" name="password" />
               </div>
               <div className="form-group">
-                <button type="submit">Signup</button>
+                <button type="submit" disabled={loading}>
+                  {loading ? <span className="spinner"></span> : "Login"}
+                </button>
               </div>
             </form>
           </div>
