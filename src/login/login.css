@@ -53,6 +53,15 @@
                 color: white;
                 border-radius: 5px;
                 font-weight: 500;
+
+                &:hover {
+                    background-color: #0571d0;
+                }
+
+                &:disabled {
+                    cursor: not-allowed;
+                    background-color: #1f8ff15b;
+                }
             }
         }
     }

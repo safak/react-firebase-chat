@@ -4,21 +4,77 @@ import EmojiPicker from "emoji-picker-react";
 import { useState } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
+import {
+  arrayUnion,
+  doc,
+  getDoc,
+  onSnapshot,
+  updateDoc,
+} from "firebase/firestore";
+import { db } from "../library/firebase";
+import { useChatStore } from "../library/chatStore";
+import { useUserStore } from "../library/userStore";
 
 function Chat() {
+  const [chat, setChat] = useState();
   const [open, setOpen] = useState(false);
   const [text, setText] = useState("");
 
   const endRef = useRef(null);
+  const { chatId } = useChatStore();
+  const { currentUser } = useUserStore();
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behaviour: "smooth" });
   }, []);
 
+  useEffect(() => {
+    const unSub = onSnapshot(doc(db, "chats", chatId), (res) => {
+      setChat(res.data());
+    });
+
+    return () => {
+      unSub();
+    };
+  }, [chatId]);
+
   const handleEmoji = (e) => {
     // console.log(e);
     setText((prev) => prev + e.emoji);
     setOpen(false);
+  };
+
+  const handleSend = async () => {
+    if (text === "") return;
+
+    try {
+      await updateDoc(doc(db, "chats", chatId), {
+        messages: arrayUnion({
+          senderId: currentUser.id,
+          text,
+          createdAt: new Date(),
+        }),
+      });
+
+      const userChatsRef = doc(db, "userChats", currentUser.id);
+      const userChatsSnapshot = await getDoc(userChatsRef);
+
+      if (userChatsSnapshot.exists()) {
+        const userChatsData = userChatsSnapshot.data();
+
+        const chatIndex = userChatsData.chats.findIndex(
+          (c) => c.chatId === chatId
+        );
+
+        userChatsData[chatIndex].updatedAt == Date.now();
+
+        await updateDoc(userChatsRef, {
+          chats: userChatsData.chats,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -38,79 +94,15 @@ function Chat() {
         </div>
       </div>
       <div className="center">
-        <div className="message">
-          <img src="./avatar.png" alt="" />
-          <div className="texts">
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam
-              enim minus velit provident reprehenderit soluta repudiandae
-              aliquam, molestias ratione nemo temporibus, modi voluptatibus
-              laudantium, alias earum vel ipsum debitis? Architecto?
-            </p>
-            <span>1 min ago</span>
+        {chat?.message?.map((message) => (
+          <div className="message own" key={message?.createAt}>
+            <div className="texts">
+              {message.img && <img src={message.img} alt="" />}
+              <p>{message.text}</p>
+              {/* <span>1 min ago</span> */}
+            </div>
           </div>
-        </div>
-        <div className="message own">
-          <div className="texts">
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam
-              enim minus velit provident reprehenderit soluta repudiandae
-              aliquam, molestias ratione nemo temporibus, modi voluptatibus
-              laudantium, alias earum vel ipsum debitis? Architecto?
-            </p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-        <div className="message">
-          <img src="./avatar.png" alt="" />
-          <div className="texts">
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam
-              enim minus velit provident reprehenderit soluta repudiandae
-              aliquam, molestias ratione nemo temporibus, modi voluptatibus
-              laudantium, alias earum vel ipsum debitis? Architecto?
-            </p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-        <div className="message own">
-          <div className="texts">
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam
-              enim minus velit provident reprehenderit soluta repudiandae
-              aliquam, molestias ratione nemo temporibus, modi voluptatibus
-              laudantium, alias earum vel ipsum debitis? Architecto?
-            </p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-        <div className="message">
-          <img src="./avatar.png" alt="" />
-          <div className="texts">
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam
-              enim minus velit provident reprehenderit soluta repudiandae
-              aliquam, molestias ratione nemo temporibus, modi voluptatibus
-              laudantium, alias earum vel ipsum debitis? Architecto?
-            </p>
-            <span>1 min ago</span>
-          </div>
-        </div>
-        <div className="message own">
-          <div className="texts">
-            <img
-              src="https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg"
-              alt=""
-            />
-            <p>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Numquam
-              enim minus velit provident reprehenderit soluta repudiandae
-              aliquam, molestias ratione nemo temporibus, modi voluptatibus
-              laudantium, alias earum vel ipsum debitis? Architecto?
-            </p>
-            <span>1 min ago</span>
-          </div>
-        </div>
+        ))}
         <div ref={endRef}></div>
       </div>
       <div className="bottom">
@@ -135,7 +127,9 @@ function Chat() {
             <EmojiPicker open={open} onEmojiClick={handleEmoji} />
           </div>
         </div>
-        <button className="sendButton">Send</button>
+        <button className="sendButton" onClick={handleSend}>
+          Send
+        </button>
       </div>
     </div>
   );
