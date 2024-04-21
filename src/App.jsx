@@ -1,7 +1,28 @@
-const App = () => {
-  return (
-    <div className=''>App</div>
-  )
-}
+import { Chats } from "./components/chats/Chats";
+import { List } from "./components/list/List";
+import { Details } from "./components/details/Details";
+import { Login }from "./pages/login/Login"
+import { Notifications } from "./utils/notification/Notifications";
 
-export default App
+const App = () => {
+  const user = true;
+
+  return (
+    <div className="container">
+      {user ? (
+        <>
+          <div className="list">
+            <List />
+          </div>
+          <Chats />
+          <Details />
+        </>
+      ) : (
+        <Login />
+      )}
+      <Notifications/>
+    </div>
+  );
+};
+
+export default App;
