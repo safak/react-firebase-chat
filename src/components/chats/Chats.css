@@ -1,0 +1,192 @@
+.chat{
+    flex: 2;
+    flex-direction: column;
+    display: flex;
+    border-left: 1px solid #dddddd35;
+    border-right: 1px solid #dddddd35;
+    height: 100%;
+    background-color: #EDF0F5;
+    /* margin-top: 1rem; */
+    /* padding: 20px; */
+
+
+    .top{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgb(255, 255, 255);
+        padding: 20px;
+        background-color: #ffffff;
+        border-bottom: 1px solid rgba(128, 128, 128, 0.357);
+
+        .user{
+            display: flex;
+            gap: 20px;
+
+            img{
+                width: 45px;
+                height: 45px;
+                border-radius: 50%;
+            }
+
+            .userDetails{
+                /* padding: 5px; */
+
+                span{
+                    font-weight: bold;
+                }
+
+                p{
+                    margin-top: 5px;
+                    font-size: 10px;
+                }
+            }
+        }
+
+        .icons{
+            display: flex;
+            gap: 20px;
+            background-color: #BFE8E1;
+            padding: 10px;
+            border-radius: 10px;
+
+
+            img{
+                height: 20px;
+                height: 20px;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .center{
+        padding: 20px;
+        flex: 1;
+        overflow: scroll;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .message{
+            max-width: 70%;
+            display: flex;
+            gap: 20px;
+
+            &.own{
+                align-self: flex-end;
+
+                .messageText{
+                    p{
+                        background-color: #FFFFFF;
+                        padding: 15px;
+                        border-radius: 10px;
+                        box-shadow: 0.5px 0.5px 0px 1px rgba(128, 128, 128, 0.368);
+                    }
+                }
+            }
+
+            img{
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+
+            .messageText{
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+
+                p{
+                    padding: 15px;
+                    border-radius: 10px;
+                    background-color: #BFE8E1;
+                    border-radius: 10px;
+                    box-shadow: 1px 0.5px 0px 1px rgba(128, 128, 128, 0.347);
+                }
+
+                span{
+                    font-size: 13px;
+                }
+
+                .imgSent{
+                    width: 100%;
+                    height: 300px;
+                    border-radius: 10px;
+                    object-fit: cover;
+                }
+            }
+
+
+        }
+
+    }
+
+    .bottom{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 40px;
+        margin-top: 1rem;
+        padding: 20px;
+        margin-top: auto;
+        background-color: #FFFFFF;
+
+        .messageInput{
+            display: flex;
+            gap: 20px;
+            align-items: center;
+
+            textarea{
+                width: 500px;
+                padding: 15px;
+                background-color: #f5f5f5;
+                border: none;
+                /* border: 1px solid rgb(187, 187, 187); */
+                border-radius: 5px;
+                outline: none;
+
+            }
+
+            .send{
+                padding: 10px;
+                border-radius: 5px;
+                width: 100px;
+                border: none;
+                background-color: #BFE8E1;
+            }
+
+            .emoji{
+                position: relative;
+
+                .picker{
+                    position: absolute;
+                    bottom: 50px;
+                    left: 0;
+                }
+
+                .emo{
+                    cursor: pointer;
+                    font-size: 25px;
+                }
+            }
+        }
+
+        .icons{
+            display: flex;
+            gap: 20px;
+            font-size: 25px;
+        }
+
+        img{
+            height: 25px;
+            width: 25px;
+            cursor: pointer;
+        }
+    }
+
+    p{
+        font-size: 15px;
+    }
+}
