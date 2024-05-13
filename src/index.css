@@ -1,3 +1,7 @@
+:root {
+    --toastify-color-success: #555;
+}
+
 * {
     margin: 0;
     padding: 0;
