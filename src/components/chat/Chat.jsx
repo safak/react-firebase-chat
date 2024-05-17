@@ -23,9 +23,8 @@ const Chat = () => {
             }
         );
     }, []);
-
     console.log(chat);
-
+    console.log(open);
     const handleEmoji = (e) => {
         setText((prev) => prev + e.emoji);
         setOpen(false);
