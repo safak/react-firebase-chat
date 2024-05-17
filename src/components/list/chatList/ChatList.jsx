@@ -65,11 +65,11 @@ const ChatList = () => {
                     key={chat.chatId}
                 >
                     <img
-                        src='./avatar.png'
+                        src={chat.user.avatar | './avatar.png'}
                         alt=''
                     />
                     <div className='texts'>
-                        <span>Jane Doe</span>
+                        <span>{chat.user.username}</span>
                         <p>{chat.lastMessage}</p>
                     </div>
                 </div>
