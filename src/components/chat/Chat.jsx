@@ -3,11 +3,14 @@ import './chat.css';
 import EmojiPicker from 'emoji-picker-react';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
+import { useChatStore } from '../../lib/chatStore';
 
 const Chat = () => {
     const [chat, setChat] = useState();
     const [open, setOpen] = useState(false);
     const [text, setText] = useState('');
+
+    const { chatId } = useChatStore();
 
     const refEnd = useRef(null);
 
@@ -16,15 +19,11 @@ const Chat = () => {
     }, []);
 
     useEffect(() => {
-        const unSub = onSnapshot(
-            doc(db, 'chats', 'TMSE4G0teZbMQKoq75DVhDEEwZQ2'),
-            (res) => {
-                setChat(res.data());
-            }
-        );
-    }, []);
+        const unSub = onSnapshot(doc(db, 'chats', chatId), (res) => {
+            setChat(res.data());
+        });
+    }, [chatId]);
     console.log(chat);
-    console.log(open);
     const handleEmoji = (e) => {
         setText((prev) => prev + e.emoji);
         setOpen(false);
@@ -60,66 +59,25 @@ const Chat = () => {
                 </div>
             </div>
             <div className='center'>
-                <div className='message own'>
-                    <div className='texts'>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat.{' '}
-                        </p>
-                        <span>1 min ago</span>
-                    </div>
-                </div>
-                <div className='message'>
-                    <img
-                        src='./avatar.png'
-                        alt=''
-                    />
-                    <div className='texts'>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat.{' '}
-                        </p>
-                        <span>1 min ago</span>
-                    </div>
-                </div>
-                <div className='message own'>
-                    <div className='texts'>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat.{' '}
-                        </p>
-                        <span>1 min ago</span>
-                    </div>
-                </div>
-                <div className='message'>
-                    <img
-                        src='./avatar.png'
-                        alt=''
-                    />
-                    <div className='texts'>
+                {chat.messages.map((message) => (
+                    <div
+                        className='message'
+                        key={message?.createAt}
+                    >
                         <img
-                            src='https://zdjecia-cdn.r.pl/hotel/3984/zakwaterowanie-umn_3984_131867_3x2.jpg?class=khMainGalleryDesktopLargePrimaryV2'
+                            src='./avatar.png'
                             alt=''
                         />
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat.{' '}
-                        </p>
-                        <span>1 min ago</span>
+                        <div className='texts'>
+                            <img
+                                src={message.img}
+                                alt=''
+                            />
+                            <p>{message.text}</p>
+                            {/* <span>{message}</span> */}
+                        </div>
                     </div>
-                </div>
+                ))}
                 <div ref={refEnd}></div>
             </div>
             <div className='bottom'>
