@@ -1,16 +1,24 @@
 import { useEffect, useRef, useState } from 'react';
 import './chat.css';
 import EmojiPicker from 'emoji-picker-react';
-import { doc, onSnapshot } from 'firebase/firestore';
+import {
+    arrayUnion,
+    doc,
+    getDoc,
+    onSnapshot,
+    updateDoc,
+} from 'firebase/firestore';
 import { db } from '../../lib/firebase';
 import { useChatStore } from '../../lib/chatStore';
+import { useUserStore } from '../../lib/userStore';
 
 const Chat = () => {
     const [chat, setChat] = useState();
     const [open, setOpen] = useState(false);
     const [text, setText] = useState('');
 
-    const { chatId } = useChatStore();
+    const { currentUser } = useUserStore();
+    const { chatId, user } = useChatStore();
 
     const refEnd = useRef(null);
 
@@ -24,9 +32,50 @@ const Chat = () => {
         });
     }, [chatId]);
     console.log(chat);
+
     const handleEmoji = (e) => {
         setText((prev) => prev + e.emoji);
         setOpen(false);
+    };
+
+    const handleSend = async () => {
+        if (text === '') return;
+
+        try {
+            await updateDoc(doc(db, 'chats', chatId), {
+                messages: arrayUnion({
+                    senderId: currentUser.id,
+                    text,
+                    createAt: new Date(),
+                }),
+            });
+
+            const userIDs = [currentUser.id, user.id];
+
+            userIDs.forEach(async (id) => {
+                const userChatsRef = doc(db, 'userchats', id);
+                const userChatsSnapshot = await getDoc(userChatsRef);
+
+                if (userChatsSnapshot.exists()) {
+                    const userChatsData = userChatsSnapshot.data();
+
+                    const chatIndex = userChatsData.findIndex(
+                        (c) => c.chatId === chatId
+                    );
+
+                    userChatsData.chats[chatIndex].lastMessage = text;
+                    userChatsData.chats[chatIndex].isSeen =
+                        id === currentUser.id ? true : false;
+                    userChatsData.chats[chatIndex].updatedAt = Date.now();
+
+                    await updateDoc(userChatsRef, {
+                        chats: userChatsData.chats,
+                    });
+                }
+            });
+        } catch (err) {
+            console.log(err);
+        }
     };
     return (
         <div className='chat'>
@@ -59,9 +108,9 @@ const Chat = () => {
                 </div>
             </div>
             <div className='center'>
-                {chat.messages.map((message) => (
+                {chat?.messages?.map((message) => (
                     <div
-                        className='message'
+                        className='message own'
                         key={message?.createAt}
                     >
                         <img
@@ -69,10 +118,13 @@ const Chat = () => {
                             alt=''
                         />
                         <div className='texts'>
-                            <img
-                                src={message.img}
-                                alt=''
-                            />
+                            {message.img ? (
+                                <img
+                                    src={message.img}
+                                    alt='description'
+                                />
+                            ) : null}
+
                             <p>{message.text}</p>
                             {/* <span>{message}</span> */}
                         </div>
@@ -114,7 +166,12 @@ const Chat = () => {
                         />
                     </div>
                 </div>
-                <button className='sendButton'>Send</button>
+                <button
+                    className='sendButton'
+                    onClick={handleSend}
+                >
+                    Send
+                </button>
             </div>
         </div>
     );
