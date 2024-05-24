@@ -1,10 +1,10 @@
 import "./userInfo.css";
-const UserInfo = () => {
+const Userinfo = () => {
     return (
       <div className="userInfo">
         <div className="user">
-<img src="../avatar.png" alt="" />
-<h2 >Khedy</h2>
+<img src="./avatar.png" alt="" />
+<h2 >Khedy Boucka</h2>
 
 
         </div>
@@ -17,4 +17,4 @@ const UserInfo = () => {
     );
   }
   
-  export default UserInfo;
+  export default Userinfo;

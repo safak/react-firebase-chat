@@ -1,6 +1,7 @@
 .chatList {
   flex : 1;
   overflow: scroll;
+  scrollbar-width: none;
   .search {
     display: flex;
     align-items: center;
@@ -9,7 +10,7 @@
 
     .searchBar {
       flex: 1;
-      background-color: rgba (17, 25, 40, 0.5);
+      background-color: #dddddd35;
       display: flex;
       align-items: center;
       gap: 20px;

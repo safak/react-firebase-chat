@@ -1,15 +1,14 @@
-import ChatList from "../chatList/ChatList";
 import "./list.css";
-import UserInfo from "../userInfo/UserInfo";
+import Userinfo from "./userInfo/Userinfo";
+import Chatlist from "./chatList/Chatlist";
 
 const List = () => {
     return (
       <div className="list">
-        <UserInfo />
-        <ChatList />
-      
+        <Userinfo />
+        <Chatlist />
       </div>
     );
-  }
-  
-  export default List;
+}
+
+export default List;
