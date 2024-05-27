@@ -11,14 +11,17 @@ import {
 import { db } from '../../lib/firebase';
 import { useChatStore } from '../../lib/chatStore';
 import { useUserStore } from '../../lib/userStore';
+import upload from '../../lib/upload';
 
 const Chat = () => {
     const [chat, setChat] = useState();
     const [open, setOpen] = useState(false);
     const [text, setText] = useState('');
+    const [img, setImg] = useState({ file: null, url: '' });
 
     const { currentUser } = useUserStore();
-    const { chatId, user } = useChatStore();
+    const { chatId, user, isCurrentUserBlocked, isReceiverBlocked } =
+        useChatStore();
 
     const refEnd = useRef(null);
 
@@ -38,15 +41,31 @@ const Chat = () => {
         setOpen(false);
     };
 
+    const handleImg = (e) => {
+        if (e.target.files[0]) {
+            setImg({
+                file: e.target.files[0],
+                url: URL.createObjectURL(e.target.files[0]),
+            });
+        }
+    };
+
     const handleSend = async () => {
         if (text === '') return;
 
+        let imgUrl = null;
+
         try {
+            if (img.file) {
+                imgUrl = await upload(img.file);
+            }
+
             await updateDoc(doc(db, 'chats', chatId), {
                 messages: arrayUnion({
                     senderId: currentUser.id,
                     text,
                     createAt: new Date(),
+                    ...(imgUrl && { img: imgUrl }),
                 }),
             });
 
@@ -76,17 +95,23 @@ const Chat = () => {
         } catch (err) {
             console.log(err);
         }
+        setImg({
+            file: null,
+            url: '',
+        });
+
+        setText('');
     };
     return (
         <div className='chat'>
             <div className='top'>
                 <div className='user'>
                     <img
-                        src='./avatar.png'
+                        src={user?.avatar || './avatar.png'}
                         alt=''
                     />
                     <div className='texts'>
-                        <span>Jane Doe</span>
+                        <span>{user.username}</span>
                         <p>
                             nam libero justo laoreet sit amet cursus sit amet.
                         </p>
@@ -130,13 +155,31 @@ const Chat = () => {
                         </div>
                     </div>
                 ))}
+                {img.url && (
+                    <div className='message own'>
+                        <div className='texts'>
+                            <img
+                                src={img.url}
+                                alt=''
+                            />
+                        </div>
+                    </div>
+                )}
                 <div ref={refEnd}></div>
             </div>
             <div className='bottom'>
                 <div className='icons'>
-                    <img
-                        src='./img.png'
-                        alt=''
+                    <label htmlFor='file'>
+                        <img
+                            src='./img.png'
+                            alt=''
+                        />
+                    </label>
+                    <input
+                        type='file'
+                        id='file'
+                        style={{ display: 'none' }}
+                        onChange={handleImg}
                     />
                     <img
                         src='./camera.png'
@@ -148,8 +191,13 @@ const Chat = () => {
                     />
                 </div>
                 <input
+                    disabled={isCurrentUserBlocked || isReceiverBlocked}
                     type='text'
-                    placeholder='Type a message...'
+                    placeholder={
+                        isCurrentUserBlocked || isReceiverBlocked
+                            ? 'You cannot send a message'
+                            : 'Type a message...'
+                    }
                     onChange={(e) => setText(e.target.value)}
                     value={text}
                 />
@@ -169,6 +217,7 @@ const Chat = () => {
                 <button
                     className='sendButton'
                     onClick={handleSend}
+                    disabled={isCurrentUserBlocked || isReceiverBlocked}
                 >
                     Send
                 </button>
