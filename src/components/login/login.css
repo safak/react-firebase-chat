@@ -52,6 +52,12 @@ button {
         border-radius: 5px;
         cursor: pointer;
         font-weight: 500;
+
+        &:disabled{
+          background-color: #c204044b;
+          cursor: not-allowed;
+        
+        }
         &:hover {
           background-color: #934e4e;
         }
