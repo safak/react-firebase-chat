@@ -6,6 +6,9 @@ export default {
       backgroundImage: {
         main: "url('../public/bg.jpg')",
       },
+      colors: {
+        "dark-blue": "rgba(17,25,40,0.75)",
+      },
       height: {
         "10v": "10vh",
         "20v": "20vh",
