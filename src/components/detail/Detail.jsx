@@ -3,7 +3,7 @@ import OptionDetail from "./OptionDetail";
 
 function Detail() {
   return (
-    <div className="flex-1">
+    <div className="flex-1 overflow-scroll">
       {/* user */}
       <div className="flex flex-col items-center gap-3 border-b border-[#dddddd35] px-5 py-[30px]">
         <img
