@@ -7,7 +7,7 @@ export default {
         main: "url('../public/bg.jpg')",
       },
       colors: {
-        "dark-blue": "rgba(17,25,40,0.75)",
+        "dark-blue": "rgba(17,25,40,0.5)",
       },
       height: {
         "10v": "10vh",
