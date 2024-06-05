@@ -1,28 +1,34 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import IconImage from "./IconImage";
 import EmojiPicker from "emoji-picker-react";
 import Message from "./Message";
+import { useEmojiPickerState } from "../../hooks/useEmojiPickerState";
 
 function Chat() {
-  const [open, setOpen] = useState(false);
+  const [
+    open,
+    closeEmojiContainer,
+    endRef,
+    emojiContainerRef,
+    messageInputRef,
+    setOpen,
+  ] = useEmojiPickerState("Escape");
   const [text, setText] = useState("");
-
-  const endRef = useRef(null);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, []);
+  }, [endRef]);
 
   function handleEmoji(e) {
     setText((prevText) => prevText + e.emoji);
-    setOpen(false);
+    closeEmojiContainer();
   }
 
   return (
     // chat
-    <div className="border-border-gray flex h-full flex-[2_2_0%] flex-col border-x">
+    <div className="flex h-full flex-[2_2_0%] flex-col border-x border-border-gray">
       {/* top */}
-      <div className="border-border-gray flex items-center justify-between border-b p-5">
+      <div className="flex items-center justify-between border-b border-border-gray p-5">
         <div className="flex items-center gap-5">
           <img
             className="h-[60px] w-[60px] rounded-full object-cover"
@@ -71,6 +77,7 @@ function Chat() {
           placeholder="Type a message..."
           onChange={(e) => setText(e.target.value)}
           value={text}
+          ref={messageInputRef}
         />
         <div className="relative">
           <IconImage
@@ -78,7 +85,10 @@ function Chat() {
             onClick={() => setOpen((prevState) => !prevState)}
             type="base"
           />
-          <div className="absolute bottom-[50px] left-0">
+          <div
+            className="absolute bottom-[50px] left-0"
+            ref={emojiContainerRef}
+          >
             <EmojiPicker open={open} onEmojiClick={handleEmoji} />
           </div>
         </div>

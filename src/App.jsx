@@ -8,7 +8,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./lib/firebase";
 
 const App = () => {
-  const user = false;
+  const user = true;
 
   useEffect(() => {
     const unSub = onAuthStateChanged(auth, (user) => {
