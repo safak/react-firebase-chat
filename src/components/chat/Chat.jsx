@@ -1,6 +1,7 @@
 import { useState } from "react";
 import IconImage from "./IconImage";
 import EmojiPicker from "emoji-picker-react";
+import Message from "./Message";
 
 function Chat() {
   const [open, setOpen] = useState(false);
@@ -38,7 +39,17 @@ function Chat() {
       </div>
 
       {/* center */}
-      <div className="flex-1 p-5"></div>
+      <div className="flex flex-1 flex-col gap-5 overflow-scroll p-5">
+        <Message />
+        <Message type="own" />
+        <Message />
+        <Message
+          type="own"
+          url="https://images.pexels.com/photos/25473496/pexels-photo-25473496.jpeg"
+        />
+        <Message />
+        <Message type="own" />
+      </div>
 
       {/* bottom */}
       <div className="mt-auto flex items-center justify-between gap-5 border-t border-[#dddddd35] p-5">
@@ -48,7 +59,7 @@ function Chat() {
           <IconImage src="mic" />
         </div>
         <input
-          className="bg-dark-blue flex-1 rounded-[10px] border-none p-5 text-base text-white outline-none placeholder:text-sm"
+          className="flex-1 rounded-[10px] border-none bg-dark-blue p-5 text-base text-white outline-none placeholder:text-sm"
           type="text"
           placeholder="Type a message..."
           onChange={(e) => setText(e.target.value)}
