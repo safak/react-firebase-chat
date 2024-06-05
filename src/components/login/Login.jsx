@@ -4,6 +4,9 @@ import FormLogin from "./FormLogin";
 import InputLogin from "./InputLogin";
 import ButtonLogin from "./ButtonLogin";
 import { toast } from "react-toastify";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "../../lib/firebase";
+import { doc, setDoc } from "firebase/firestore";
 
 function Login() {
   const [avatar, setAvatar] = useState({
@@ -20,13 +23,31 @@ function Login() {
     }
   }
 
-  function handleRegister(e) {
+  async function handleRegister(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
 
     const { username, email, password } = Object.fromEntries(formData);
 
-    console.log(username, email, password);
+    try {
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+
+      await setDoc(doc(db, "users", res.user.uid), {
+        username,
+        email,
+        id: res.user.uid,
+        blocked: [],
+      });
+
+      await setDoc(doc(db, "userChats", res.user.uid), {
+        chats: [],
+      });
+
+      toast.success("Account created! You can login now!");
+    } catch (err) {
+      console.log(err);
+      toast.error(err.message);
+    }
   }
 
   function handleLogin(e) {
