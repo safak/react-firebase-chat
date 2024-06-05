@@ -4,7 +4,7 @@ import List from "./components/list/List";
 
 const App = () => {
   return (
-    <div className="w-90v h-90v bg-dark-blue flex rounded-xl border border-white/10 backdrop-blur-lg backdrop-saturate-100">
+    <div className="flex h-90v w-80v rounded-xl border border-white/10 bg-dark-blue backdrop-blur-lg backdrop-saturate-100">
       <List />
       <Chat />
       <Detail />

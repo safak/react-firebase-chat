@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import IconImage from "./IconImage";
 import EmojiPicker from "emoji-picker-react";
 import Message from "./Message";
@@ -6,6 +6,12 @@ import Message from "./Message";
 function Chat() {
   const [open, setOpen] = useState(false);
   const [text, setText] = useState("");
+
+  const endRef = useRef(null);
+
+  useEffect(() => {
+    endRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, []);
 
   function handleEmoji(e) {
     setText((prevText) => prevText + e.emoji);
@@ -49,6 +55,7 @@ function Chat() {
         />
         <Message type="base" />
         <Message type="own" />
+        <div ref={endRef}></div>
       </div>
 
       {/* bottom */}
