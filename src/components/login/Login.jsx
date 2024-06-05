@@ -20,9 +20,17 @@ function Login() {
     }
   }
 
+  function handleRegister(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+
+    const { username, email, password } = Object.fromEntries(formData);
+
+    console.log(username, email, password);
+  }
+
   function handleLogin(e) {
     e.preventDefault();
-    toast.warn("Hello");
   }
 
   return (
@@ -41,7 +49,7 @@ function Login() {
 
       <ItemLogin>
         <h2>Create an Account</h2>
-        <FormLogin onSumbit={handleLogin}>
+        <FormLogin onSumbit={handleRegister}>
           <label
             className="flex w-full cursor-pointer items-center justify-between underline"
             htmlFor="file"
