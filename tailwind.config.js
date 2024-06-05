@@ -10,6 +10,7 @@ export default {
         "dark-blue": "rgba(17,25,40,0.5)",
         "danger-red": "rgba(230,74,105,0.553)",
         "login-blue": "#1f8ef1",
+        "login-blue-disabled": "#1f8ff1a3",
         "border-gray": "#dddddd35",
       },
       height: {

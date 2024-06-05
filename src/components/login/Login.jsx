@@ -7,12 +7,17 @@ import { toast } from "react-toastify";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../lib/firebase";
 import { doc, setDoc } from "firebase/firestore";
+import upload from "../../lib/upload";
 
 function Login() {
   const [avatar, setAvatar] = useState({
     file: null,
     url: "",
   });
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  console.log(avatar.file);
 
   function handleAvatar(e) {
     if (e.target.files[0]) {
@@ -25,6 +30,7 @@ function Login() {
 
   async function handleRegister(e) {
     e.preventDefault();
+    setIsLoading(true);
     const formData = new FormData(e.target);
 
     const { username, email, password } = Object.fromEntries(formData);
@@ -32,9 +38,12 @@ function Login() {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
 
+      const imgUrl = await upload(avatar.file);
+
       await setDoc(doc(db, "users", res.user.uid), {
         username,
         email,
+        avatar: imgUrl,
         id: res.user.uid,
         blocked: [],
       });
@@ -47,6 +56,8 @@ function Login() {
     } catch (err) {
       console.log(err);
       toast.error(err.message);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -62,7 +73,9 @@ function Login() {
           <InputLogin type="text" placeholder="Email" name="email" />
           <InputLogin type="password" placeholder="Password" name="password" />
 
-          <ButtonLogin>Sign In</ButtonLogin>
+          <ButtonLogin disabled={isLoading}>
+            {isLoading ? "Loading..." : "Sign In"}
+          </ButtonLogin>
         </FormLogin>
       </ItemLogin>
 
@@ -93,7 +106,9 @@ function Login() {
           <InputLogin type="text" placeholder="Email" name="email" />
           <InputLogin type="password" placeholder="Password" name="password" />
 
-          <ButtonLogin>Sign Up</ButtonLogin>
+          <ButtonLogin disabled={isLoading}>
+            {isLoading ? "Loading..." : "Sign Up"}
+          </ButtonLogin>
         </FormLogin>
       </ItemLogin>
     </div>
