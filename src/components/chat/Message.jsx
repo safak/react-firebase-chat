@@ -1,16 +1,16 @@
 function Message({ type, url }) {
   const baseMessage = "flex max-w-[70%] gap-5";
 
-  //   const styles = {
-  //     base: baseMessage,
-  //     own: baseMessage + "",
-  //   };
+  const styles = {
+    base: baseMessage,
+    own: baseMessage + " self-end",
+  };
 
   //   <div className={styles[type]}>
 
   if (type === "own")
     return (
-      <div className="flex max-w-[70%] gap-5 self-end">
+      <div className={styles[type]}>
         <div className="flex flex-1 flex-col gap-[5px]">
           {url && (
             <img
@@ -32,7 +32,7 @@ function Message({ type, url }) {
     );
 
   return (
-    <div className="flex max-w-[70%] gap-5">
+    <div className={styles[type]}>
       <img
         src="./avatar.png"
         alt=""

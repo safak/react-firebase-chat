@@ -8,6 +8,7 @@ export default {
       },
       colors: {
         "dark-blue": "rgba(17,25,40,0.5)",
+        "danger-red": "rgba(230,74,105,0.553)",
       },
       height: {
         "10v": "10vh",

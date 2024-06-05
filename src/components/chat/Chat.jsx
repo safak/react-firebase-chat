@@ -32,31 +32,31 @@ function Chat() {
         </div>
 
         <div className="flex gap-4">
-          <IconImage src="phone" />
-          <IconImage src="video" />
-          <IconImage src="info" />
+          <IconImage src="phone" type="base" />
+          <IconImage src="video" type="base" />
+          <IconImage src="info" type="base" />
         </div>
       </div>
 
       {/* center */}
       <div className="flex flex-1 flex-col gap-5 overflow-scroll p-5">
-        <Message />
+        <Message type="base" />
         <Message type="own" />
-        <Message />
+        <Message type="base" />
         <Message
           type="own"
           url="https://images.pexels.com/photos/25473496/pexels-photo-25473496.jpeg"
         />
-        <Message />
+        <Message type="base" />
         <Message type="own" />
       </div>
 
       {/* bottom */}
       <div className="mt-auto flex items-center justify-between gap-5 border-t border-[#dddddd35] p-5">
         <div className="flex gap-5">
-          <IconImage src="img" />
-          <IconImage src="camera" />
-          <IconImage src="mic" />
+          <IconImage src="img" type="base" />
+          <IconImage src="camera" type="base" />
+          <IconImage src="mic" type="base" />
         </div>
         <input
           className="flex-1 rounded-[10px] border-none bg-dark-blue p-5 text-base text-white outline-none placeholder:text-sm"
@@ -69,6 +69,7 @@ function Chat() {
           <IconImage
             src="emoji"
             onClick={() => setOpen((prevState) => !prevState)}
+            type="base"
           />
           <div className="absolute bottom-[50px] left-0">
             <EmojiPicker open={open} onEmojiClick={handleEmoji} />
