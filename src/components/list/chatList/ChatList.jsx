@@ -1,10 +1,11 @@
 import { useState } from "react";
+import ListItem from "./ListItem";
 
 function ChatList() {
   const [addMode, setAddMode] = useState(false);
 
   return (
-    <div className="">
+    <div className="flex-1 overflow-scroll">
       <div className="flex items-center gap-5 p-5">
         <div className="bg-dark-blue flex flex-1 gap-5 rounded-[10px] p-[10px]">
           <img className="h-5 w-5" src="./search.png" alt="" />
@@ -21,6 +22,13 @@ function ChatList() {
           alt=""
         />
       </div>
+      <ListItem />
+      <ListItem />
+      <ListItem />
+      <ListItem />
+      <ListItem />
+      <ListItem />
+      <ListItem />
     </div>
   );
 }
