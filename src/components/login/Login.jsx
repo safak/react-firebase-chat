@@ -4,7 +4,10 @@ import FormLogin from "./FormLogin";
 import InputLogin from "./InputLogin";
 import ButtonLogin from "./ButtonLogin";
 import { toast } from "react-toastify";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { auth, db } from "../../lib/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import upload from "../../lib/upload";
@@ -16,8 +19,6 @@ function Login() {
   });
 
   const [isLoading, setIsLoading] = useState(false);
-
-  console.log(avatar.file);
 
   function handleAvatar(e) {
     if (e.target.files[0]) {
@@ -31,8 +32,8 @@ function Login() {
   async function handleRegister(e) {
     e.preventDefault();
     setIsLoading(true);
-    const formData = new FormData(e.target);
 
+    const formData = new FormData(e.target);
     const { username, email, password } = Object.fromEntries(formData);
 
     try {
@@ -61,8 +62,23 @@ function Login() {
     }
   }
 
-  function handleLogin(e) {
+  async function handleLogin(e) {
+    console.log(e);
     e.preventDefault();
+    setIsLoading(true);
+
+    const formData = new FormData(e.target);
+    const { email, password } = Object.fromEntries(formData);
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      toast.success("You're signed in!");
+    } catch (err) {
+      console.log(err);
+      toast.error(err.message);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
