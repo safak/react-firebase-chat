@@ -1,13 +1,22 @@
 import Chat from "./components/chat/Chat";
 import Detail from "./components/detail/Detail";
 import List from "./components/list/List";
+import Login from "./components/login/Login";
 
 const App = () => {
+  const user = false;
+
   return (
     <div className="flex h-90v w-80v rounded-xl border border-white/10 bg-dark-blue backdrop-blur-lg backdrop-saturate-100">
-      <List />
-      <Chat />
-      <Detail />
+      {user ? (
+        <>
+          <List />
+          <Chat />
+          <Detail />
+        </>
+      ) : (
+        <Login />
+      )}
     </div>
   );
 };

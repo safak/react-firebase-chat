@@ -9,6 +9,8 @@ export default {
       colors: {
         "dark-blue": "rgba(17,25,40,0.5)",
         "danger-red": "rgba(230,74,105,0.553)",
+        "login-blue": "#1f8ef1",
+        "border-gray": "#dddddd35",
       },
       height: {
         "10v": "10vh",

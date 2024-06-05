@@ -20,9 +20,9 @@ function Chat() {
 
   return (
     // chat
-    <div className="flex h-full flex-[2_2_0%] flex-col border-x border-[#dddddd35]">
+    <div className="border-border-gray flex h-full flex-[2_2_0%] flex-col border-x">
       {/* top */}
-      <div className="flex items-center justify-between border-b border-[#dddddd35] p-5">
+      <div className="border-border-gray flex items-center justify-between border-b p-5">
         <div className="flex items-center gap-5">
           <img
             className="h-[60px] w-[60px] rounded-full object-cover"
