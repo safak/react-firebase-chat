@@ -1,9 +1,41 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ListItem from "./ListItem";
 import AddUser from "./addUser/AddUser";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import { db } from "../../../lib/firebase";
+import { useUserStore } from "../../../lib/userStore";
 
 function ChatList() {
+  const [chats, setChats] = useState([]);
   const [addMode, setAddMode] = useState(false);
+
+  const { currentUser } = useUserStore();
+
+  useEffect(() => {
+    const unSub = onSnapshot(
+      doc(db, "userChats", currentUser.id),
+      async (res) => {
+        const items = res.data().chats;
+
+        const promises = items.map(async (item) => {
+          const userDocRef = doc(db, "users", item.receiverId);
+          const userDocSnap = await getDoc(userDocRef);
+
+          const user = userDocSnap.data();
+
+          return { ...item, user };
+        });
+
+        const chatData = await Promise.all(promises);
+
+        setChats(chatData.sort((a, b) => b.updatedAt - a.updatedAt));
+      },
+    );
+
+    return () => {
+      unSub();
+    };
+  }, [currentUser.id]);
 
   return (
     <div className="flex-1 overflow-scroll">
@@ -23,13 +55,11 @@ function ChatList() {
           alt=""
         />
       </div>
-      <ListItem />
-      <ListItem />
-      <ListItem />
-      <ListItem />
-      <ListItem />
-      <ListItem />
-      <ListItem />
+
+      {chats.map((chat) => {
+        return <ListItem key={chat.chatId} chat={chat} />;
+      })}
+
       {addMode && <AddUser />}
     </div>
   );

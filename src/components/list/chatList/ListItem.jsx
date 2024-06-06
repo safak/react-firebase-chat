@@ -1,4 +1,4 @@
-function ListItem() {
+function ListItem({ chat }) {
   return (
     <div className="flex cursor-pointer items-center gap-5 border-b border-[#dddddd35] p-5">
       <img
@@ -8,7 +8,7 @@ function ListItem() {
       />
       <div className="flex flex-col gap-[10px]">
         <span className="font-medium">Jane Doe</span>
-        <p className="text-[14px] font-light">Hello</p>
+        <p className="text-[14px] font-light">{chat.lastMessage}</p>
       </div>
     </div>
   );
