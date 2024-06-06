@@ -5,6 +5,7 @@ import Message from "./Message";
 import { useEmojiPickerState } from "../../hooks/useEmojiPickerState";
 
 function Chat() {
+  // Custom hook, needs KEY for handling closing Emoji Container.
   const [
     open,
     closeEmojiContainer,
@@ -20,6 +21,7 @@ function Chat() {
   }, [endRef]);
 
   function handleEmoji(e) {
+    console.log(e);
     setText((prevText) => prevText + e.emoji);
     closeEmojiContainer();
   }

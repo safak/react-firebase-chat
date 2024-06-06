@@ -1,3 +1,4 @@
+import { auth } from "../../lib/firebase";
 import IconImage from "../chat/IconImage";
 import OptionDetail from "./OptionDetail";
 
@@ -28,10 +29,15 @@ function Detail() {
 
         <OptionDetail src="arrowUp" optionName="Shared Files" />
 
-        <button className="bg-danger-red cursor-pointer rounded-[5px] p-[15px] text-white hover:bg-[rgba(220,20,60,0.796)]">
+        <button className="cursor-pointer rounded-[5px] bg-danger-red p-[15px] text-white hover:bg-[rgba(220,20,60,0.796)]">
           Block User
         </button>
-        <button className="bg-[#1a73e8] p-[10px]">Logout</button>
+        <button
+          className="bg-[#1a73e8] p-[10px]"
+          onClick={() => auth.signOut()}
+        >
+          Logout
+        </button>
       </div>
     </div>
   );

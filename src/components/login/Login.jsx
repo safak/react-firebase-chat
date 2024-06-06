@@ -63,7 +63,6 @@ function Login() {
   }
 
   async function handleLogin(e) {
-    console.log(e);
     e.preventDefault();
     setIsLoading(true);
 
@@ -84,10 +83,15 @@ function Login() {
   return (
     <div className="flex h-full w-full items-center gap-[100px]">
       <ItemLogin>
-        <h2>Welcome back,</h2>
+        <h2 className="font-bold">Welcome back,</h2>
         <FormLogin onSumbit={handleLogin}>
           <InputLogin type="text" placeholder="Email" name="email" />
-          <InputLogin type="password" placeholder="Password" name="password" />
+          <InputLogin
+            type="password"
+            placeholder="Password"
+            name="password"
+            autocomplete="on"
+          />
 
           <ButtonLogin disabled={isLoading}>
             {isLoading ? "Loading..." : "Sign In"}
@@ -98,7 +102,7 @@ function Login() {
       <div className="h-4/5 w-[2px] border border-border-gray"></div>
 
       <ItemLogin>
-        <h2>Create an Account</h2>
+        <h2 className="font-bold">Create an Account</h2>
         <FormLogin onSumbit={handleRegister}>
           <label
             className="flex w-full cursor-pointer items-center justify-between underline"
@@ -120,7 +124,12 @@ function Login() {
 
           <InputLogin type="text" placeholder="Username" name="username" />
           <InputLogin type="text" placeholder="Email" name="email" />
-          <InputLogin type="password" placeholder="Password" name="password" />
+          <InputLogin
+            type="password"
+            placeholder="Password"
+            name="password"
+            autocomplete="on"
+          />
 
           <ButtonLogin disabled={isLoading}>
             {isLoading ? "Loading..." : "Sign Up"}

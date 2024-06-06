@@ -12,6 +12,7 @@ export function useEmojiPickerState(key) {
     setOpen(false);
   }, []);
 
+  // Detecting Button press to close the Emoji Container.
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === key) {
@@ -25,7 +26,7 @@ export function useEmojiPickerState(key) {
     };
   }, [key, closeEmojiContainer]);
 
-  // Detecting Clicks Outside the Emoji Container
+  // Detecting Clicks Outside the Emoji Container.
   const handleClickOutside = useCallback(
     function handleClickOutside(e) {
       if (
