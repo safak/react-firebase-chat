@@ -3,6 +3,9 @@ import IconImage from "./IconImage";
 import EmojiPicker from "emoji-picker-react";
 import Message from "./Message";
 import { useEmojiPickerState } from "../../hooks/useEmojiPickerState";
+import { db } from "../../lib/firebase";
+import { doc, onSnapshot } from "firebase/firestore";
+import { useChatStore } from "../../lib/chatStore";
 
 function Chat() {
   // Custom hook, needs KEY for handling closing Emoji Container.
@@ -15,10 +18,25 @@ function Chat() {
     setOpen,
   ] = useEmojiPickerState("Escape");
   const [text, setText] = useState("");
+  const [chat, setChat] = useState([]);
+
+  console.log(chat);
+
+  const { chatId } = useChatStore();
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [endRef]);
+
+  useEffect(() => {
+    const unSub = onSnapshot(doc(db, "chats", chatId), (res) => {
+      setChat(res.data());
+    });
+
+    return () => unSub();
+  }, [chatId]);
+
+  console.log(chat);
 
   function handleEmoji(e) {
     console.log(e);
@@ -54,15 +72,9 @@ function Chat() {
 
       {/* center */}
       <div className="flex flex-1 flex-col gap-5 overflow-scroll p-5">
-        <Message type="base" />
-        <Message type="own" />
-        <Message type="base" />
-        <Message
-          type="own"
-          url="https://images.pexels.com/photos/25473496/pexels-photo-25473496.jpeg"
-        />
-        <Message type="base" />
-        <Message type="own" />
+        {chat?.messages?.map((message) => (
+          <Message key={message?.createdAt} message={message} type="base" />
+        ))}
         <div ref={endRef}></div>
       </div>
 

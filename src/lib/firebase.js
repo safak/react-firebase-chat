@@ -18,11 +18,11 @@ export const auth = getAuth();
 export const db = getFirestore();
 export const storage = getStorage();
 
-async function test() {
-  const testColRef = collection(db, "testCollection");
-  const testDocRef = doc(testColRef);
+// async function test() {
+//   const testColRef = collection(db, "testCollection");
+//   const testDocRef = doc(testColRef);
 
-  console.log(testDocRef);
-}
+//   console.log(testDocRef);
+// }
 
-test();
+// test();

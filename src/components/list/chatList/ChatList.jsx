@@ -4,12 +4,14 @@ import AddUser from "./addUser/AddUser";
 import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../../../lib/firebase";
 import { useUserStore } from "../../../lib/userStore";
+import { useChatStore } from "../../../lib/chatStore";
 
 function ChatList() {
   const [chats, setChats] = useState([]);
   const [addMode, setAddMode] = useState(false);
 
   const { currentUser } = useUserStore();
+  const { chatId, changeChat } = useChatStore();
 
   useEffect(() => {
     const unSub = onSnapshot(
@@ -37,6 +39,10 @@ function ChatList() {
     };
   }, [currentUser.id]);
 
+  async function handleSelect(chat) {
+    changeChat(chat.chatId, chat.user);
+  }
+
   return (
     <div className="flex-1 overflow-scroll">
       <div className="flex items-center gap-5 p-5">
@@ -57,7 +63,13 @@ function ChatList() {
       </div>
 
       {chats.map((chat) => {
-        return <ListItem key={chat.chatId} chat={chat} />;
+        return (
+          <ListItem
+            key={chat.chatId}
+            chat={chat}
+            onClick={() => handleSelect(chat)}
+          />
+        );
       })}
 
       {addMode && <AddUser />}

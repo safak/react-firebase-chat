@@ -1,6 +1,9 @@
-function ListItem({ chat }) {
+function ListItem({ chat, onClick }) {
   return (
-    <div className="flex cursor-pointer items-center gap-5 border-b border-[#dddddd35] p-5">
+    <div
+      className="flex cursor-pointer items-center gap-5 border-b border-[#dddddd35] p-5"
+      onClick={onClick}
+    >
       <img
         src={chat.user.avatar || "./avatar.png"}
         alt=""
