@@ -1,8 +1,11 @@
 import { auth } from "../../lib/firebase";
-import IconImage from "../chat/IconImage";
 import OptionDetail from "./OptionDetail";
 
 function Detail() {
+  function userSignOut() {
+    auth.signOut();
+  }
+
   return (
     <div className="flex-1 overflow-scroll">
       {/* user */}
@@ -32,10 +35,7 @@ function Detail() {
         <button className="cursor-pointer rounded-[5px] bg-danger-red p-[15px] text-white hover:bg-[rgba(220,20,60,0.796)]">
           Block User
         </button>
-        <button
-          className="bg-[#1a73e8] p-[10px]"
-          onClick={() => auth.signOut()}
-        >
+        <button className="bg-[#1a73e8] p-[10px]" onClick={userSignOut}>
           Logout
         </button>
       </div>
