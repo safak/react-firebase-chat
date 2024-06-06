@@ -1,10 +1,23 @@
 import { useState } from "react";
 import { db } from "../../../../lib/firebase";
 import AddUserButton from "./AddUserButton";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import {
+  arrayUnion,
+  collection,
+  doc,
+  getDocs,
+  query,
+  serverTimestamp,
+  setDoc,
+  updateDoc,
+  where,
+} from "firebase/firestore";
+import { useUserStore } from "../../../../lib/userStore";
 
 function AddUser() {
   const [user, setUser] = useState(null);
+
+  const { currentUser } = useUserStore();
 
   async function handleSearch(e) {
     // Prevent Default Refresh Event.
@@ -26,7 +39,7 @@ function AddUser() {
       // Executes the query and returns the results as a QuerySnapshot.
       const querySnapShot = await getDocs(q);
 
-      console.log(querySnapShot);
+      console.log(querySnapShot.docs[0].data());
 
       if (!querySnapShot.empty) {
         setUser(querySnapShot.docs[0].data());
@@ -36,7 +49,40 @@ function AddUser() {
     }
   }
 
-  async function handleAdd() {}
+  async function handleAdd() {
+    // Collections Refs
+    const chatRef = collection(db, "chats");
+    const userChatsRef = collection(db, "userChats");
+
+    try {
+      const newChatRef = doc(chatRef);
+
+      await setDoc(newChatRef, {
+        createdAt: serverTimestamp(),
+        messages: [],
+      });
+
+      await updateDoc(doc(userChatsRef, user.id), {
+        chats: arrayUnion({
+          chatId: newChatRef.id,
+          lastMessage: "",
+          receiverId: currentUser.id,
+          updatedAt: Date.now(),
+        }),
+      });
+
+      await updateDoc(doc(userChatsRef, currentUser.id), {
+        chats: arrayUnion({
+          chatId: newChatRef.id,
+          lastMessage: "",
+          receiverId: user.id,
+          updatedAt: Date.now(),
+        }),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className="absolute inset-0 m-auto h-max w-max rounded-[10px] bg-[#111928e7] p-[30px]">
