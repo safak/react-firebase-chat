@@ -1,30 +1,71 @@
+import { useState } from "react";
+import { db } from "../../../../lib/firebase";
 import AddUserButton from "./AddUserButton";
+import { collection, getDocs, query, where } from "firebase/firestore";
 
 function AddUser() {
+  const [user, setUser] = useState(null);
+
+  async function handleSearch(e) {
+    // Prevent Default Refresh Event.
+    e.preventDefault();
+
+    // Gettin Data from Form Inputs.
+    const formData = new FormData(e.target);
+    const username = formData.get("username");
+
+    // Async Operation
+    try {
+      // Gets a CollectionReference instance that refers to the collection at the specified absolute path.
+      const userRef = collection(db, "users");
+
+      // where(fieldPath, opStr, value)
+      // Creates a QueryFieldFilterConstraint that enforces that documents must contain the specified field and that the value should satisfy the relation constraint provided.
+      const q = query(userRef, where("username", "==", username));
+
+      // Executes the query and returns the results as a QuerySnapshot.
+      const querySnapShot = await getDocs(q);
+
+      console.log(querySnapShot);
+
+      if (!querySnapShot.empty) {
+        setUser(querySnapShot.docs[0].data());
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  async function handleAdd() {}
+
   return (
     <div className="absolute inset-0 m-auto h-max w-max rounded-[10px] bg-[#111928e7] p-[30px]">
-      <form className="flex gap-5">
+      <form className="flex gap-5" onSubmit={handleSearch}>
         <input
           type="text"
           placeholder="Username"
           name="username"
-          className="rounded-[10px] p-5 outline-none"
+          className="rounded-[10px] p-5 text-[#111928e7] outline-none"
         />
 
         <AddUserButton type="base">Search</AddUserButton>
       </form>
-      <div className="mt-[50px] flex items-center justify-between">
-        <div className="flex items-center gap-5">
-          <img
-            src="./avatar.png"
-            alt=""
-            className="h-[50px] w-[50px] rounded-full object-cover"
-          />
-          <span>Jane Doe</span>
-        </div>
+      {user && (
+        <div className="mt-[50px] flex items-center justify-between">
+          <div className="flex items-center gap-5">
+            <img
+              src={user.avatar || "./avatar.png"}
+              alt=""
+              className="h-[50px] w-[50px] rounded-full object-cover"
+            />
+            <span>{user.username}</span>
+          </div>
 
-        <AddUserButton type="small">Add User</AddUserButton>
-      </div>
+          <AddUserButton onClick={handleAdd} type="small">
+            Add User
+          </AddUserButton>
+        </div>
+      )}
     </div>
   );
 }
