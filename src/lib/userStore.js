@@ -5,8 +5,9 @@ import { db } from "./firebase";
 export const useUserStore = create((set) => ({
   currentUser: null,
   isLoading: true,
+
+  // Fetching info about LOGGED IN USER
   fetchUserInfo: async (uid) => {
-    console.log(uid);
     if (!uid) return set({ currentUser: null, isLoading: false });
 
     try {

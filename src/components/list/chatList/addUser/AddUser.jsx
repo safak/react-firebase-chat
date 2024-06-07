@@ -39,8 +39,6 @@ function AddUser() {
       // Executes the query and returns the results as a QuerySnapshot.
       const querySnapShot = await getDocs(q);
 
-      console.log(querySnapShot.docs[0].data());
-
       if (!querySnapShot.empty) {
         setUser(querySnapShot.docs[0].data());
       }

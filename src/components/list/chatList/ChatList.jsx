@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ListItem from "./ListItem";
 import AddUser from "./addUser/AddUser";
-import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import { doc, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "../../../lib/firebase";
 import { useUserStore } from "../../../lib/userStore";
 import { useChatStore } from "../../../lib/chatStore";
@@ -10,8 +10,8 @@ function ChatList() {
   const [chats, setChats] = useState([]);
   const [addMode, setAddMode] = useState(false);
 
-  const { currentUser } = useUserStore();
-  const { chatId, changeChat } = useChatStore();
+  const { currentUser, chatId } = useUserStore();
+  const { changeChat } = useChatStore();
 
   useEffect(() => {
     const unSub = onSnapshot(
@@ -20,11 +20,14 @@ function ChatList() {
         const items = res.data().chats;
 
         const promises = items.map(async (item) => {
+          // Getting Receiver Object from users collection by receiver ID
           const userDocRef = doc(db, "users", item.receiverId);
           const userDocSnap = await getDoc(userDocRef);
 
+          // Receiver User Object
           const user = userDocSnap.data();
 
+          // Returing Chat Item Object and Receiver User Object
           return { ...item, user };
         });
 
@@ -40,7 +43,27 @@ function ChatList() {
   }, [currentUser.id]);
 
   async function handleSelect(chat) {
-    changeChat(chat.chatId, chat.user);
+    const userChats = chats.map((item) => {
+      const { user, ...rest } = item;
+      return rest;
+    });
+
+    const chatIndex = userChats.findIndex(
+      (item) => item.chatId === chat.chatId,
+    );
+
+    const userChatsRef = doc(db, "userChats", currentUser.id);
+
+    userChats[chatIndex].isSeen = true;
+
+    try {
+      await updateDoc(userChatsRef, {
+        chats: userChats,
+      });
+      changeChat(chat.chatId, chat.user);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -65,7 +88,7 @@ function ChatList() {
       {chats.map((chat) => {
         return (
           <ListItem
-            key={chat.chatId}
+            key={chat.updatedAt}
             chat={chat}
             onClick={() => handleSelect(chat)}
           />

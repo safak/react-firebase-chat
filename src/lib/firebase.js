@@ -1,6 +1,16 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { collection, doc, getFirestore } from "firebase/firestore";
+import {
+  FieldPath,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
@@ -17,12 +27,3 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
 export const db = getFirestore();
 export const storage = getStorage();
-
-// async function test() {
-//   const testColRef = collection(db, "testCollection");
-//   const testDocRef = doc(testColRef);
-
-//   console.log(testDocRef);
-// }
-
-// test();

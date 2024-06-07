@@ -6,20 +6,18 @@ function Message({ type, message }) {
     own: baseMessage + " self-end",
   };
 
-  //   <div className={styles[type]}>
-
   if (type === "own")
     return (
       <div className={styles[type]}>
-        <div className="flex flex-1 flex-col gap-[5px]">
-          {message.img && (
-            <img
-              className="h-[300px] w-full rounded-lg object-cover"
-              src={message.img}
-              alt=""
-            />
-          )}
+        {message.img && (
+          <img
+            className="h-[300px] w-full rounded-lg object-cover"
+            src={message.img}
+            alt=""
+          />
+        )}
 
+        <div className="flex flex-1 flex-col gap-[5px]">
           <p className="rounded-[10px] bg-[#5183fe] p-5">{message.text}</p>
           {/* <span className="text-sm">{message}</span> */}
         </div>

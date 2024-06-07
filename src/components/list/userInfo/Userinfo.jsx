@@ -3,8 +3,6 @@ import { useUserStore } from "../../../lib/userStore";
 function Userinfo() {
   const { currentUser } = useUserStore();
 
-  console.log(currentUser.avatar);
-
   return (
     <div className="flex items-center justify-between p-5">
       <div className="flex items-center gap-5">
