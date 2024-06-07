@@ -1,9 +1,34 @@
-import { auth } from "../../lib/firebase";
+import { auth, db } from "../../lib/firebase";
 import OptionDetail from "./OptionDetail";
 
+import { useUserStore } from "../../lib/userStore";
+import { useChatStore } from "../../lib/chatStore";
+import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
+
 function Detail() {
+  const { chatId, user, isCurrentUserBlocked, isReceiverlocked, changeBlock } =
+    useChatStore();
+
+  const { currentUser } = useUserStore();
+
   function userSignOut() {
     auth.signOut();
+  }
+
+  async function handleBlock() {
+    if (!user) return;
+
+    // Creating Ref for Current User / USERS collection
+    const userDocRef = doc(db, "users", currentUser.id);
+
+    try {
+      await updateDoc(userDocRef, {
+        blocked: isReceiverlocked ? arrayRemove(user.id) : arrayUnion(user.id),
+      });
+      changeBlock();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -11,11 +36,11 @@ function Detail() {
       {/* user */}
       <div className="flex flex-col items-center gap-3 border-b border-[#dddddd35] px-5 py-[30px]">
         <img
-          src="./avatar.png"
+          src={user?.avatar || "./avatar.png"}
           alt=""
           className="h-[100px] w-[100px] rounded-full object-cover"
         />
-        <h2>Jane Doe</h2>
+        <h2>{user?.username}</h2>
         <p>Lorem ipsum dolor sit amet.</p>
       </div>
       {/* info */}
@@ -32,8 +57,15 @@ function Detail() {
 
         <OptionDetail src="arrowUp" optionName="Shared Files" />
 
-        <button className="cursor-pointer rounded-[5px] bg-danger-red p-[15px] text-white hover:bg-[rgba(220,20,60,0.796)]">
-          Block User
+        <button
+          className="cursor-pointer rounded-[5px] bg-danger-red p-[15px] text-white hover:bg-[rgba(220,20,60,0.796)]"
+          onClick={handleBlock}
+        >
+          {isCurrentUserBlocked
+            ? "You are blocked!"
+            : isReceiverlocked
+              ? "User blocked"
+              : "Block user"}
         </button>
         <button className="bg-[#1a73e8] p-[10px]" onClick={userSignOut}>
           Logout

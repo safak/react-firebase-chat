@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import IconImage from "./IconImage";
 import EmojiPicker from "emoji-picker-react";
 import Message from "./Message";
@@ -32,11 +32,13 @@ function Chat() {
     url: "",
   });
 
-  const { chatId, user } = useChatStore();
+  const { chatId, user, isCurrentUserBlocked, isReceiverlocked } =
+    useChatStore();
   const { currentUser } = useUserStore();
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
+    console.log("hello");
   }, [endRef]);
 
   // Listening updates in CHATS collection and Triggering useState Update if any chanes have happened.
@@ -128,11 +130,11 @@ function Chat() {
         <div className="flex items-center gap-5">
           <img
             className="h-[60px] w-[60px] rounded-full object-cover"
-            src="./avatar.png"
+            src={user?.avatar || "./avatar.png"}
             alt=""
           />
           <div className="flex flex-col gap-[5px]">
-            <span className="text-lg font-bold">Jane Doe</span>
+            <span className="text-lg font-bold">{user?.username}</span>
             <p className="text-sm font-light text-[#a5a5a5]">
               Lorem ipsum dolor sit amet.
             </p>
@@ -148,10 +150,10 @@ function Chat() {
 
       {/* center */}
       <div className="flex flex-1 flex-col gap-5 overflow-scroll p-5">
-        {chat?.messages?.map((message) => (
-          <>
+        {chat?.messages?.map((message, index) => (
+          <Fragment key={message.createdAt}>
             <Message
-              key={message?.createdAt}
+              // key={message?.createdAt}
               message={message}
               type={message.senderId === currentUser.id ? "own" : "base"}
               img={img}
@@ -169,9 +171,8 @@ function Chat() {
                 </div>
               </div>
             )}
-          </>
+          </Fragment>
         ))}
-
         <div ref={endRef}></div>
       </div>
 
@@ -191,12 +192,17 @@ function Chat() {
           <IconImage src="mic" type="base" />
         </div>
         <input
-          className="flex-1 rounded-[10px] border-none bg-dark-blue p-5 text-base text-white outline-none placeholder:text-sm"
+          className="flex-1 rounded-[10px] border-none bg-dark-blue p-5 text-base text-white outline-none placeholder:text-sm disabled:cursor-not-allowed"
           type="text"
-          placeholder="Type a message..."
+          placeholder={
+            isCurrentUserBlocked || isReceiverlocked
+              ? "You cannot send a message..."
+              : "Type a message..."
+          }
           onChange={(e) => setText(e.target.value)}
           value={text}
           ref={messageInputRef}
+          disabled={isCurrentUserBlocked || isReceiverlocked}
         />
         <div className="relative">
           <IconImage
@@ -212,8 +218,9 @@ function Chat() {
           </div>
         </div>
         <button
-          className="cursor-pointer rounded-[5px] bg-[#5183fe] px-5 py-[10px] text-white"
+          className="cursor-pointer rounded-[5px] bg-[#5183fe] px-5 py-[10px] text-white disabled:cursor-not-allowed disabled:bg-[#5182feba]"
           onClick={handleSend}
+          disabled={isCurrentUserBlocked || isReceiverlocked}
         >
           Send
         </button>

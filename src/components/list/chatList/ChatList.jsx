@@ -92,6 +92,7 @@ function ChatList() {
             key={chat.updatedAt}
             chat={chat}
             onClick={() => handleSelect(chat)}
+            currentUser={currentUser}
           />
         );
       })}
