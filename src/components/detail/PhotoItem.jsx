@@ -1,6 +1,6 @@
 import IconImage from "../chat/IconImage";
 
-function PhotoItem({ imgUrl, iconUrl, type }) {
+function PhotoItem({ imgUrl, iconUrl, type, date }) {
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center gap-5">
@@ -9,9 +9,7 @@ function PhotoItem({ imgUrl, iconUrl, type }) {
           src={imgUrl}
           alt=""
         />
-        <span className="text-sm font-light text-gray-200">
-          photo_2024_2.png
-        </span>
+        <span className="text-sm font-light text-gray-200">{date}</span>
       </div>
       <IconImage src={iconUrl} type={type} />
     </div>

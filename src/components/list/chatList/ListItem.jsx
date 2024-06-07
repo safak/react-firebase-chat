@@ -1,6 +1,4 @@
 function ListItem({ chat, onClick, currentUser }) {
-  console.log(currentUser);
-
   return (
     <div
       className={`flex cursor-pointer items-center gap-5 border-b border-[#dddddd35] p-5 ${chat.isSeen ? "bg-transparent" : "bg-[#5183fe]"}`}

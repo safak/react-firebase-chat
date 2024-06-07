@@ -86,7 +86,7 @@ function ChatList() {
           />
         </div>
         <img
-          className="h-9 w-9 cursor-pointer rounded-[10px] bg-dark-blue p-[10px]"
+          className="h-9 w-9 cursor-pointer rounded-[10px] bg-dark-blue p-[10px] active:bg-login-blue-disabled"
           src={addMode ? "./minus.png" : "./plus.png"}
           onClick={() => setAddMode((prevState) => !prevState)}
           alt=""

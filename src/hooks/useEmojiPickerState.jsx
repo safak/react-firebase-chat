@@ -4,7 +4,7 @@ export function useEmojiPickerState(key) {
   const [open, setOpen] = useState(false);
 
   // Refs
-  const endRef = useRef(null);
+
   const emojiContainerRef = useRef(null);
   const messageInputRef = useRef(null);
 
@@ -52,7 +52,7 @@ export function useEmojiPickerState(key) {
   return [
     open,
     closeEmojiContainer,
-    endRef,
+
     emojiContainerRef,
     messageInputRef,
     setOpen,

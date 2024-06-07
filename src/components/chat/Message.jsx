@@ -1,5 +1,7 @@
+import { createdMinsAgo } from "../../utils/getDate";
+
 function Message({ type, message }) {
-  const baseMessage = "flex max-w-[70%] gap-5";
+  const baseMessage = "flex max-w-[70%] gap-5 ";
 
   const styles = {
     base: baseMessage,
@@ -17,8 +19,13 @@ function Message({ type, message }) {
               alt=""
             />
           )}
-          <p className="rounded-[10px] bg-[#5183fe] p-5">{message.text}</p>
-          {/* <span className="text-sm">{message}</span> */}
+          <p className="rounded-[10px] bg-[#5183fe] p-5 shadow-sm shadow-blue-900">
+            {message.text}
+          </p>
+
+          <span className="text-sm">
+            {createdMinsAgo(message.createdAt.seconds)}
+          </span>
         </div>
       </div>
     );
@@ -34,7 +41,7 @@ function Message({ type, message }) {
           />
         )}
         <p className="rounded-[10px] bg-dark-blue p-5">{message.text}</p>
-        {/* <span className="text-sm">{message}</span> */}
+        {createdMinsAgo(message.createdAt.seconds)}
       </div>
     </div>
   );

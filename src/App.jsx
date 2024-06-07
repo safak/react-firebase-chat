@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Chat from "./components/chat/Chat";
 import Detail from "./components/detail/Detail";
 import List from "./components/list/List";
@@ -8,6 +8,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./lib/firebase";
 import { useUserStore } from "./lib/userStore";
 import { useChatStore } from "./lib/chatStore";
+import PreviewScreenChat from "./components/chat/PreviewScreenChat";
+import PreviewScreenDetail from "./components/detail/PreviewScreenDetail";
 
 const App = () => {
   const { currentUser, isLoading, fetchUserInfo } = useUserStore();
@@ -29,12 +31,12 @@ const App = () => {
     );
 
   return (
-    <div className="flex h-90v w-80v rounded-xl border border-white/10 bg-dark-blue backdrop-blur-lg backdrop-saturate-100">
+    <div className="flex h-90v w-80v rounded-xl border border-white/10 bg-dark-blue shadow-lg shadow-gray-500 backdrop-blur-lg backdrop-saturate-100">
       {currentUser ? (
         <>
           <List />
-          {chatId && <Chat />}
-          {chatId && <Detail />}
+          {chatId ? <Chat /> : <PreviewScreenChat />}
+          {chatId ? <Detail /> : <PreviewScreenDetail />}
         </>
       ) : (
         <Login />

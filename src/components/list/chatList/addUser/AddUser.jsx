@@ -83,17 +83,20 @@ function AddUser() {
   }
 
   return (
-    <div className="absolute inset-0 m-auto h-max w-max rounded-[10px] bg-[#111928e7] p-[30px]">
-      <form className="flex gap-5" onSubmit={handleSearch}>
-        <input
-          type="text"
-          placeholder="Username"
-          name="username"
-          className="rounded-[10px] p-5 text-[#111928e7] outline-none"
-        />
+    <div className="absolute inset-0 m-auto h-max w-max rounded-[10px] bg-[#111928dc] p-[30px] shadow-xl shadow-login-blue-disabled">
+      <div className="flex flex-col gap-4">
+        <p className="text-xl">Add new user</p>
+        <form className="flex gap-5" onSubmit={handleSearch}>
+          <input
+            type="text"
+            placeholder="Username"
+            name="username"
+            className="rounded-[10px] p-5 text-[#111928e7] outline-none"
+          />
 
-        <AddUserButton type="base">Search</AddUserButton>
-      </form>
+          <AddUserButton type="base">Search</AddUserButton>
+        </form>
+      </div>
       {user && (
         <div className="mt-[50px] flex items-center justify-between">
           <div className="flex items-center gap-5">

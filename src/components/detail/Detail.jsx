@@ -3,13 +3,31 @@ import OptionDetail from "./OptionDetail";
 
 import { useUserStore } from "../../lib/userStore";
 import { useChatStore } from "../../lib/chatStore";
-import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
+import {
+  arrayRemove,
+  arrayUnion,
+  doc,
+  onSnapshot,
+  updateDoc,
+} from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { getDate } from "../../utils/getDate";
 
 function Detail() {
   const { chatId, user, isCurrentUserBlocked, isReceiverlocked, changeBlock } =
     useChatStore();
 
+  const [sharedImages, setSharedImges] = useState([]);
   const { currentUser } = useUserStore();
+
+  // Listening updates in CHATS collection and Triggering useState Update if any changes have happened.
+  useEffect(() => {
+    const unSub = onSnapshot(doc(db, "chats", chatId), (res) => {
+      setSharedImges(res.data().messages);
+    });
+
+    return () => unSub();
+  }, [chatId]);
 
   function userSignOut() {
     auth.signOut();
@@ -49,11 +67,23 @@ function Detail() {
 
         <OptionDetail src="arrowUp" optionName="Privacy & Help" />
 
-        <OptionDetail
-          src="arrowDown"
-          optionName="Shared photos"
-          photos={true}
-        />
+        {sharedImages.length > 0 &&
+          sharedImages
+            .filter((item) => item.img)
+            .map((message) => {
+              const imgUrl = message.img;
+              const date = getDate(message.createdAt.seconds);
+              return (
+                <OptionDetail
+                  key={message.createdAt}
+                  src="arrowDown"
+                  optionName="Shared photos"
+                  url={imgUrl}
+                  date={date}
+                  photos={true}
+                />
+              );
+            })}
 
         <OptionDetail src="arrowUp" optionName="Shared Files" />
 
