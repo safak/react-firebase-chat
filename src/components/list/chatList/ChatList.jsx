@@ -9,6 +9,7 @@ import { useChatStore } from "../../../lib/chatStore";
 function ChatList() {
   const [chats, setChats] = useState([]);
   const [addMode, setAddMode] = useState(false);
+  const [inputSearch, setInputSearch] = useState("");
 
   const { currentUser, chatId } = useUserStore();
   const { changeChat } = useChatStore();
@@ -67,6 +68,10 @@ function ChatList() {
     }
   }
 
+  const filteredChats = chats.filter((c) =>
+    c.user.username.toLowerCase().includes(inputSearch.toLowerCase()),
+  );
+
   return (
     <div className="flex-1 overflow-scroll">
       <div className="flex items-center gap-5 p-5">
@@ -76,6 +81,8 @@ function ChatList() {
             type="text"
             placeholder="Search..."
             className="flex border-none bg-transparent text-white outline-none placeholder:text-sm"
+            value={inputSearch}
+            onChange={(e) => setInputSearch(e.target.value)}
           />
         </div>
         <img
@@ -86,7 +93,7 @@ function ChatList() {
         />
       </div>
 
-      {chats.map((chat) => {
+      {filteredChats.map((chat) => {
         return (
           <ListItem
             key={chat.updatedAt}
