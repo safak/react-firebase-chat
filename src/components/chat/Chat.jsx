@@ -13,6 +13,7 @@ import {
 } from "firebase/firestore";
 import { useChatStore } from "../../lib/chatStore";
 import { useUserStore } from "../../lib/userStore";
+import upload from "../../lib/upload";
 
 function Chat() {
   // Custom hook, needs KEY for handling closing Emoji Container.
@@ -26,6 +27,10 @@ function Chat() {
   ] = useEmojiPickerState("Escape");
   const [text, setText] = useState("");
   const [chat, setChat] = useState([]);
+  const [img, setImg] = useState({
+    file: null,
+    url: "",
+  });
 
   const { chatId, user } = useChatStore();
   const { currentUser } = useUserStore();
@@ -34,6 +39,7 @@ function Chat() {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [endRef]);
 
+  // Listening updates in CHATS collection and Triggering useState Update if any chanes have happened.
   useEffect(() => {
     const unSub = onSnapshot(doc(db, "chats", chatId), (res) => {
       setChat(res.data());
@@ -47,23 +53,40 @@ function Chat() {
     closeEmojiContainer();
   }
 
+  function handleImg(e) {
+    if (e.target.files[0]) {
+      setImg({
+        file: e.target.files[0],
+        url: URL.createObjectURL(e.target.files[0]),
+      });
+    }
+  }
+
   async function handleSend() {
     if (text === "") return;
 
-    // Updating messages array inside chats collection by CHAT_ID
+    let imgUrl = null;
+
+    if (img.file) {
+      imgUrl = await upload(img.file);
+
+      console.log(imgUrl);
+    }
+    // Updating messages array inside CHATS collection by CHAT_ID.
     try {
       await updateDoc(doc(db, "chats", chatId), {
         messages: arrayUnion({
           senderId: currentUser.id,
           text,
           createdAt: new Date(),
+          ...(imgUrl && { img: imgUrl }),
         }),
       });
 
       const userIDs = [currentUser.id, user.id];
 
       userIDs.forEach(async (id) => {
-        // Getting reference to document inside userChats collection by CURRENT_USER_ID
+        // Getting reference to document inside userChats collection by CURRENT_USER_ID.
         const userChatsRef = doc(db, "userChats", id);
         const userChatsSnapshot = await getDoc(userChatsRef);
 
@@ -78,6 +101,7 @@ function Chat() {
             id === currentUser.id ? true : false;
           userChatsData.chats[chatIndex].updatedAt = Date.now();
 
+          // Updating userChats collection by USER_ID and RECEIVER_ID.
           await updateDoc(userChatsRef, {
             chats: userChatsData.chats,
           });
@@ -86,6 +110,14 @@ function Chat() {
     } catch (error) {
       console.log(error);
     }
+
+    // Resetting initial state for message inputs
+    setImg({
+      file: null,
+      imgUrl: "",
+    });
+
+    setText("");
   }
 
   return (
@@ -117,19 +149,44 @@ function Chat() {
       {/* center */}
       <div className="flex flex-1 flex-col gap-5 overflow-scroll p-5">
         {chat?.messages?.map((message) => (
-          <Message
-            key={message?.createdAt}
-            message={message}
-            type={message.senderId === currentUser.id ? "own" : "base"}
-          />
+          <>
+            <Message
+              key={message?.createdAt}
+              message={message}
+              type={message.senderId === currentUser.id ? "own" : "base"}
+              img={img}
+            />
+            {img.url && (
+              <div
+                className={`flex max-w-[70%] gap-5 ${message.senderId === currentUser.id ? "self-end" : ""}`}
+              >
+                <div className="flex flex-1 flex-col gap-[5px]">
+                  <img
+                    src={img.url}
+                    alt=""
+                    className="h-[300px] w-full rounded-lg object-cover"
+                  />
+                </div>
+              </div>
+            )}
+          </>
         ))}
+
         <div ref={endRef}></div>
       </div>
 
       {/* bottom */}
       <div className="mt-auto flex items-center justify-between gap-5 border-t border-[#dddddd35] p-5">
         <div className="flex gap-5">
-          <IconImage src="img" type="base" />
+          <label htmlFor="file">
+            <IconImage src="img" type="base" />
+          </label>
+          <input
+            type="file"
+            id="file"
+            className="hidden"
+            onChange={handleImg}
+          />
           <IconImage src="camera" type="base" />
           <IconImage src="mic" type="base" />
         </div>
