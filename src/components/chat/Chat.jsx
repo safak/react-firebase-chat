@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import IconImage from "./IconImage";
 import EmojiPicker from "emoji-picker-react";
 import Message from "./Message";
@@ -14,7 +14,6 @@ import {
 import { useChatStore } from "../../lib/chatStore";
 import { useUserStore } from "../../lib/userStore";
 import upload from "../../lib/upload";
-import useRerenderComponentHook from "../../hooks/useRerenderComponentHook";
 import ChatContainer from "./ChatContainer";
 
 function Chat() {
@@ -28,8 +27,6 @@ function Chat() {
     setOpen,
   ] = useEmojiPickerState("Escape");
 
-  // const endRef = useRef(null);
-
   const [text, setText] = useState("");
   const [chat, setChat] = useState([]);
   const [img, setImg] = useState({
@@ -40,25 +37,6 @@ function Chat() {
   const { chatId, user, isCurrentUserBlocked, isReceiverlocked } =
     useChatStore();
   const { currentUser } = useUserStore();
-
-  // This custom Hook is tracking the time and updates messegaes time
-  useRerenderComponentHook();
-
-  // function handleScroll() {
-  //   endRef.current?.scrollIntoView({
-  //     behavior: "smooth",
-  //     block: "nearest",
-  //     inline: "start",
-  //   });
-  // }
-
-  // useEffect(() => {
-  //   handleScroll();
-  // }, [endRef, chatId]);
-
-  // useEffect(() => {
-  //   handleScroll();
-  // }, [endRef, chatId]);
 
   // Listening updates in CHATS collection and Triggering useState Update if any changes have happened.
   useEffect(() => {
@@ -84,7 +62,8 @@ function Chat() {
     }
   }
 
-  async function handleSend() {
+  async function handleSend(e) {
+    e.preventDefault();
     if (text === "") return;
 
     let imgUrl = null;
@@ -216,6 +195,7 @@ function Chat() {
           <IconImage src="camera" type="base" />
           <IconImage src="mic" type="base" />
         </div>
+        {/* <form onSubmit={handleSend}> */}
         <input
           className="flex-1 rounded-[10px] border-none bg-dark-blue p-5 text-base text-white outline-none placeholder:text-sm disabled:cursor-not-allowed"
           type="text"
@@ -229,6 +209,7 @@ function Chat() {
           ref={messageInputRef}
           disabled={isCurrentUserBlocked || isReceiverlocked}
         />
+        {/* </form> */}
         <div className="relative">
           <IconImage
             src="emoji"

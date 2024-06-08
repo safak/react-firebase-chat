@@ -7,6 +7,14 @@ export const useChatStore = create((set) => ({
   isCurrentUserBlocked: false,
   isReceiverlocked: false,
 
+  signOutChat: () => {
+    return set({
+      chatId: null,
+      user: null,
+      isCurrentUserBlocked: false,
+      isReceiverlocked: false,
+    });
+  },
   // changeChat need chatId and Receiver User Object
   changeChat: (chatId, user) => {
     const currentUser = useUserStore.getState().currentUser;

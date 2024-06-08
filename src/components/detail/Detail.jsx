@@ -14,11 +14,17 @@ import { useEffect, useState } from "react";
 import { getDate } from "../../utils/getDate";
 
 function Detail() {
-  const { chatId, user, isCurrentUserBlocked, isReceiverlocked, changeBlock } =
-    useChatStore();
+  const {
+    chatId,
+    user,
+    isCurrentUserBlocked,
+    isReceiverlocked,
+    changeBlock,
+    signOutChat,
+  } = useChatStore();
 
   const [sharedImages, setSharedImges] = useState([]);
-  const { currentUser } = useUserStore();
+  const { currentUser, signOutUser } = useUserStore();
 
   // Listening updates in CHATS collection and Triggering useState Update if any changes have happened.
   useEffect(() => {
@@ -31,6 +37,10 @@ function Detail() {
 
   function userSignOut() {
     auth.signOut();
+
+    // Sign Out Local State Zustand
+    signOutChat();
+    signOutUser();
   }
 
   async function handleBlock() {
@@ -97,7 +107,10 @@ function Detail() {
               ? "User blocked"
               : "Block user"}
         </button>
-        <button className="bg-[#1a73e8] p-[10px]" onClick={userSignOut}>
+        <button
+          className="rounded-[5px] bg-[#1a73e8] p-[10px] hover:bg-[#1034e6]"
+          onClick={userSignOut}
+        >
           Logout
         </button>
       </div>

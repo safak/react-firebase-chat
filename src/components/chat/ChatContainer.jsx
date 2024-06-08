@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-function ChatContainer({ children, chatId }) {
+function ChatContainer({ children }) {
   const endRef = useRef(null);
 
   const handleScroll = function () {
@@ -11,7 +11,7 @@ function ChatContainer({ children, chatId }) {
 
   useEffect(() => {
     handleScroll();
-  }, []);
+  });
 
   return (
     <div className="flex flex-1 flex-col gap-5 overflow-scroll p-5">

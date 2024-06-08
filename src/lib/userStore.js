@@ -23,4 +23,10 @@ export const useUserStore = create((set) => ({
       return set({ currentUser: null, isLoading: false });
     }
   },
+  signOutUser: () => {
+    return set({
+      currentUser: null,
+      isLoading: true,
+    });
+  },
 }));

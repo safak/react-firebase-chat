@@ -15,10 +15,10 @@ export function createdMinsAgo(timeStamp) {
   const diffDays = Math.round(diffTime / 1000) / 60;
 
   if (diffDays > 0 && diffDays < 1) return "Less than a minute ago...";
-  else if (diffDays > 1 && diffDays < 2)
+  else if (diffDays > 1 && diffDays < 2) {
     return `${Math.floor(diffDays)} minute ago...`;
-  else if (diffDays > 60) {
-    return `${Math.floor(diffDays / 60)} hours ago`;
+  } else if (diffDays > 60) {
+    return `${Math.floor(diffDays / 60) === 1 ? Math.floor(diffDays / 60) + " hour ago" : Math.floor(diffDays / 60) + " hours ago"} `;
   } else {
     return `${Math.floor(diffDays)} minutes ago...`;
   }

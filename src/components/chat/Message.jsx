@@ -1,6 +1,10 @@
+import useRerenderComponentHook from "../../hooks/useRerenderComponentHook";
 import { createdMinsAgo } from "../../utils/getDate";
 
 function Message({ type, message }) {
+  // This custom Hook is tracking the time and updates messegaes time
+  useRerenderComponentHook();
+
   const baseMessage = "flex max-w-[70%] gap-5 ";
 
   const styles = {
