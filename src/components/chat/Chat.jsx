@@ -151,7 +151,8 @@ function Chat() {
       {/* <div className="flex flex-1 flex-col gap-5 overflow-scroll p-5"> */}
       <ChatContainer
         // endRef={endRef}
-        chatId={chatId}
+        // key={chatId}
+        chatMessages={chat?.messages}
         messageInputRef={messageInputRef}
       >
         {chat?.messages?.map((message, index) => (

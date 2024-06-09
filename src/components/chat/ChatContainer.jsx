@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-function ChatContainer({ children }) {
+function ChatContainer({ children, chatMessages }) {
   const endRef = useRef(null);
 
   const handleScroll = function () {
@@ -10,6 +10,7 @@ function ChatContainer({ children }) {
   };
 
   useEffect(() => {
+    console.log(endRef.current.getBoundingClientRect());
     handleScroll();
   });
 

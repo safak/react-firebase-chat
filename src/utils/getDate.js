@@ -17,6 +17,8 @@ export function createdMinsAgo(timeStamp) {
   if (diffDays > 0 && diffDays < 1) return "Less than a minute ago...";
   else if (diffDays > 1 && diffDays < 2) {
     return `${Math.floor(diffDays)} minute ago...`;
+  } else if (diffDays / 60 > 1) {
+    return `${Math.floor(diffDays / 60 / 24) === 1 ? Math.floor(diffDays / 60 / 24) + " day ago" : Math.floor(diffDays / 60 / 24) + " days ago"}`;
   } else if (diffDays > 60) {
     return `${Math.floor(diffDays / 60) === 1 ? Math.floor(diffDays / 60) + " hour ago" : Math.floor(diffDays / 60) + " hours ago"} `;
   } else {
