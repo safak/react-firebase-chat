@@ -1,12 +1,13 @@
 import List from "./components/list/List";
 import Chat from "./components/chat/Chat";
 import Detail from "./components/detail/Detail";
-import { Fragment } from "react";
 import Login from "./components/login/Login";
+import Notificaiton from "./components/notification/Notification";
+import { Fragment } from "react";
 
 
 const App = () => {
-  const user = false;
+  const user = true;
 
   return (
     <div className='container'>
@@ -19,6 +20,7 @@ const App = () => {
       ) : (
         <Login/>
       )}
+      <Notificaiton/>
     </div>
   )
 }
