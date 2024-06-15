@@ -1,7 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
     "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
+body {
+  background-image: url("/bg.jpg") ;
+display: flex;
+align-items: center;
+justify-content: center;
+height: 100vh;
+color: white; 
+
+}
+
+.container{
+  width: 90vw;
+  height: 90vh;
+  background-color:  rgba(17,25,40,0.75);
+  backdrop-filter: blur(30px) saturate(180%);
+  border-radius: 12px;
+  border: 1px solid rgba(225, 225, 225, 0.125);
 }
