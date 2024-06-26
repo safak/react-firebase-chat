@@ -76,6 +76,8 @@ const Chat = () => {
                         <img src="https://img.freepik.com/free-photo/view-of-beautiful-rainbow-appearing-at-the-end-of-a-road_23-2151562962.jpg?size=626&ext=jpg" alt="" />
                         <p>Hi, what's up?</p>
                         <span>1 min ago</span>
+
+                        
                     </div>
                 </div>
 
