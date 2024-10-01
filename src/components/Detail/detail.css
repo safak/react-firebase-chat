@@ -1,0 +1,93 @@
+.detail {
+    flex: 1;
+
+    .user {
+        padding: 30px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        border-bottom: 1px solid #dddddd35;
+
+        img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+    }
+
+    .info {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .option {
+
+            .title {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                img {
+                    width: 30px;
+                    height: 30px;
+                    background-color: rgba(17, 25, 40, 0.3);
+                    padding: 10px;
+                    border-radius: 50%;
+                    cursor: pointer;
+                }
+            }
+
+            .photos {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                margin-top: 20px;
+
+                .photosItem {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    .photosDetail {
+                        display: flex;
+                        align-items: center;
+                        gap: 20px;
+                        img {
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 5px;
+                            object-fit: cover;
+                        }
+                        span {
+                            font-size: 14px;
+                            color: lightgray;
+                            font-weight: 300;
+                        }
+                    }
+                    .icon {
+                        width: 30px;
+                        height: 30px;
+                        padding: 10px;
+                        background-color: rgba(17, 25, 40, 0.3);
+                        border-radius: 40%;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+        button {
+            padding: 10px 20px;
+            background-color: darkred;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+
+                &:hover {
+                background-color: rgba(220, 20, 60, 0.796);
+            }
+        }
+    }
+}
