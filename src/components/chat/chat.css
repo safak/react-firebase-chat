@@ -5,6 +5,9 @@
     flex: 2;
     border-left: 1px solid var(--bg-color);
     border-right: 1px solid var(--bg-color);
+    background-color: var(--chat-bg-color);
+    border-radius: 10px;
+    overflow: hidden;
     
     .top {
         padding: 10px;
@@ -75,12 +78,13 @@
             height: 80vh;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
             overflow-Y: scroll;
             max-height: 95vh;
             padding: 0 17%;
-            margin:  0 auto;
-            overscroll-behavior: none;
+            overscroll-behavior: contain;
+            scrollbar-width: thin;
+            scrollbar-color: var(--purple-2) var(--container-color);
             
             #scrollDownBtn {
                 display: flex;
@@ -103,11 +107,14 @@
                 }
             }
             .message {
-                position: relative;
                 display: flex;
                 flex-direction: column;
-                max-width: 400px;
-                gap: 20px;
+                max-width: 60%;
+                gap: 10px;
+                transition: transform 0.2s;
+                &:hover {
+                    transform: scale(1.02);
+                }
             
                 &.own {
                     align-self: flex-end;
@@ -229,10 +236,12 @@
         position: fixed;
         display: flex;
         justify-content: center;
-        bottom: 20px;
+        bottom: 10px;
         gap: 20px;
         background-color: transparent;
-        
+        border-radius: 10px;
+        max-width: 700px;
+
         .input-inner {
             position: relative;
             display: flex;
@@ -313,6 +322,11 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
+            
+            &:hover {
+                background-color: #4169e1;
+            }
             
             &:disabled {
                 cursor: not-allowed;
@@ -327,6 +341,9 @@
 }
 
 @media screen and (max-width: 768px) {
+    .chat .messages {
+        max-width: 100%;
+    }
     .removeText {
         display: block;
     }
