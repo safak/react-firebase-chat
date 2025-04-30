@@ -2,6 +2,27 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  font-family: 'YourPreferredFont', sans-serif;
+  font-weight: 300px; ;
+}
+body {
+  background-image: url("https://images.unsplash.com/photo-1728582195927-c789cd39abad?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: white;
+}
+
+.container{
+  width: 80vw;
+  height: 90vh;
+  background-color: rgba(11, 11, 26, 0.73);
+  backdrop-filter: blur(19px) saturate(180%) ;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.125);
+  display: flex;
 }
