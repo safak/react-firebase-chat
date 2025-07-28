@@ -1,0 +1,140 @@
+.detail{
+    flex: 1;
+    overflow: scroll;
+
+
+
+    .user{
+        display: flex;
+        flex-direction: column;
+
+        align-items: center;
+        padding: 30px 20px;
+        gap: 20px;
+        border-bottom: 1px solid #dddddd35;
+
+
+
+        img{
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    }
+
+
+
+
+
+    .info{
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        
+
+        .option{
+
+            .title{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+
+                img{
+                    width: 30px;
+                    height: 30px;
+                    background-color: rgba(17, 25, 40, 0.3);
+                    padding: 10px;
+                    border-radius: 50%;
+                    cursor: pointer;
+                }
+            }
+
+
+            .photos{
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                margin-top: 20px;
+
+
+                .photo_item{
+
+
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+
+                    .photo_detail{
+
+                        display: flex;
+                        align-items: center;
+                        gap: 20px;
+
+
+
+                        img{
+                            width: 40px;
+                            height: 40px;
+                            border-radius: 5px;
+                            object-fit: cover;
+                        }
+
+
+                        span{
+                            font-size: 14px;
+                            color: lightgray;
+                            font-weight: 300;
+                        }
+                    }
+
+
+                    .down_icon{
+                        width: 30px;
+                        height: 30px;
+                        background-color: rgba(17, 25, 40, 0.3);
+                        padding: 10px;
+                        border-radius: 50%;
+                        cursor: pointer;
+                        object-fit: cover;
+                    }
+
+
+                }
+            }
+        }
+
+
+
+        button{
+            padding: 10px 20px;
+            background-color: rgba(200, 25, 40, 0.6);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+
+
+            &:hover{
+                background-color: rgba(200, 25, 40, 0.9);
+            }
+        }
+        
+        .logout{
+            padding: 10px 20px;
+            background-color: rgba(20, 80, 400, 0.6);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+
+
+            &:hover{
+                background-color: rgba(20, 80, 400, 0.9);
+            }
+        }
+
+    }
+}
